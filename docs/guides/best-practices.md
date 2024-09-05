@@ -1,15 +1,18 @@
-# Best Practices
+# 最佳实践
 
-Hono is very flexible. You can write your app as you like.
-However, there are best practices that are better to follow.
+Hono 非常灵活。您可以按照自己的喜好编写应用程序。  
+然而，有一些最佳实践是更值得遵循的。  
+```  
+// 代码示例  
+```
 
-## Don't make "Controllers" when possible
+## 尽量不要创建“控制器”
 
-When possible, you should not create "Ruby on Rails-like Controllers".
+在可能的情况下，您应该避免创建“类似于 Ruby on Rails 的控制器”。
 
 ```ts
 // 🙁
-// A RoR-like Controller
+// 一个类似于 RoR 的控制器
 const booksList = (c: Context) => {
   return c.json('list books')
 }
@@ -17,30 +20,30 @@ const booksList = (c: Context) => {
 app.get('/books', booksList)
 ```
 
-The issue is related to types. For example, the path parameter cannot be inferred in the Controller without writing complex generics.
+问题与类型有关。例如，路径参数在控制器中无法推断，而不需要编写复杂的泛型。
 
 ```ts
 // 🙁
-// A RoR-like Controller
+// 一个类似于 RoR 的控制器
 const bookPermalink = (c: Context) => {
-  const id = c.req.param('id') // Can't infer the path param
+  const id = c.req.param('id') // 无法推断路径参数
   return c.json(`get ${id}`)
 }
 ```
 
-Therefore, you don't need to create RoR-like controllers and should write handlers directly after path definitions.
+因此，您不需要创建类似于 RoR 的控制器，而应该在路径定义后直接编写处理程序。
 
 ```ts
 // 😃
 app.get('/books/:id', (c) => {
-  const id = c.req.param('id') // Can infer the path param
+  const id = c.req.param('id') // 可以推断路径参数
   return c.json(`get ${id}`)
 })
 ```
 
-## `factory.createHandlers()` in `hono/factory`
+## `factory.createHandlers()` 在 `hono/factory`
 
-If you still want to create a RoR-like Controller, use `factory.createHandlers()` in [`hono/factory`](/docs/helpers/factory). If you use this, type inference will work correctly.
+如果您仍然想创建一个类似 RoR 的控制器，请在 [`hono/factory`](/docs/helpers/factory) 中使用 `factory.createHandlers()`。如果您使用这个，类型推断将会正确工作。
 
 ```ts
 import { createFactory } from 'hono/factory'
@@ -63,11 +66,11 @@ const handlers = factory.createHandlers(logger(), middleware, (c) => {
 app.get('/api', ...handlers)
 ```
 
-## Building a larger application
+## 构建更大的应用程序
 
-Use `app.route()` to build a larger application without creating "Ruby on Rails-like Controllers".
+使用 `app.route()` 构建更大的应用程序，而无需创建类似于 "Ruby on Rails" 的控制器。
 
-If your application has `/authors` and `/books` endpoints and you wish to separate files from `index.ts`, create `authors.ts` and `books.ts`.
+如果您的应用程序有 `/authors` 和 `/books` 端点，并且您希望将文件与 `index.ts` 分开，可以创建 `authors.ts` 和 `books.ts`。
 
 ```ts
 // authors.ts
@@ -95,7 +98,7 @@ app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
 export default app
 ```
 
-Then, import them and mount on the paths `/authors` and `/books` with `app.route()`.
+然后，导入它们并使用 `app.route()` 挂载到路径 `/authors` 和 `/books`。
 
 ```ts
 // index.ts

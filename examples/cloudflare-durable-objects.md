@@ -1,8 +1,8 @@
 # Cloudflare Durable Objects
 
-By using Hono, you can write [Durable Objects](https://developers.cloudflare.com/durable-objects/) application easily.
+通过使用 Hono，您可以轻松编写 [Durable Objects](https://developers.cloudflare.com/durable-objects/) 应用程序。
 
-Hono can handle a `fetch` event of Durable Objects and you can use it with the powerful router.
+Hono 可以处理 Durable Objects 的 `fetch` 事件，您可以将其与强大的路由器一起使用。
 
 ```ts
 import { Hono } from 'hono'
@@ -42,7 +42,7 @@ export class Counter {
 }
 ```
 
-## See also
+## 另见
 
 - [Durable Objects](https://developers.cloudflare.com/durable-objects/)
-- [Durable Objects with Hono Example](https://github.com/honojs/examples/blob/main/durable-objects/README.md)
+- [Hono 示例中的 Durable Objects](https://github.com/honojs/examples/blob/main/durable-objects/README.md)

@@ -1,34 +1,34 @@
 # Pylon
 
 ::: warning
-**Pylon Requires Bun:** This project currently depends on the [Bun runtime](https://bun.sh). If you need support for a different runtime, please upvote and follow the discussion on issue https://github.com/getcronit/pylon/issues/6 to help us prioritize it.
+**Pylon 需要 Bun：** 该项目目前依赖于 [Bun 运行时](https://bun.sh)。如果您需要支持其他运行时，请在问题 https://github.com/getcronit/pylon/issues/6 上投票并关注讨论，以帮助我们优先考虑此问题。
 :::
 
-Building a GraphQL API with Pylon is simple and straightforward. Pylon is a backend framework that is built on top of Hono and provides code-first GraphQL API development.
+使用 Pylon 构建 GraphQL API 简单明了。Pylon 是一个基于 Hono 构建的后端框架，提供代码优先的 GraphQL API 开发。
 
-The GraphQL schema is generated in real-time from your TypeScript definitions, allowing you to focus solely on writing your service logic. This approach significantly improves development speed, enhances type safety, and reduces errors.
+GraphQL 架构实时从您的 TypeScript 定义中生成，使您能够专注于编写服务逻辑。这种方法显著提高了开发速度，增强了类型安全性，并减少了错误。
 
-Any breaking changes in your code are instantly reflected in your API, enabling you to immediately see how changes impact its functionality.
+您代码中的任何破坏性更改会立即反映在您的 API 中，使您能够立即看到更改如何影响其功能。
 
-## Setup new Pylon service
+## 设置新的 Pylon 服务
 
-### Setup Pylon
+### 设置 Pylon
 
-You have to install Pylon as described in [their documentation](https://pylon.cronit.io/docs/installation).
+您需要按照 [他们的文档](https://pylon.cronit.io/docs/installation) 中的说明安装 Pylon。
 
-### Creating a new project
+### 创建新项目
 
-To create a new Pylon project, run the following command:
+要创建一个新的 Pylon 项目，请运行以下命令：
 
 ```bash
 pylon new my-pylon-project
 ```
 
-This will create a new directory called `my-pylon-project` with a basic Pylon project structure.
+这将创建一个名为 `my-pylon-project` 的新目录，包含基本的 Pylon 项目结构。
 
-### Project structure
+### 项目结构
 
-Pylon projects are structured as follows:
+Pylon 项目的结构如下：
 
 ```
 my-pylon-project/
@@ -39,15 +39,15 @@ my-pylon-project/
 ├── tsconfig.json
 ```
 
-- `.pylon/`: Contains the production build of your project.
-- `src/`: Contains the source code of your project.
-- `src/index.ts`: The entry point of your Pylon service.
-- `package.json`: The npm package configuration file.
-- `tsconfig.json`: The TypeScript configuration file.
+- `.pylon/`: 包含您项目的生产构建。
+- `src/`: 包含您项目的源代码。
+- `src/index.ts`: 您的 Pylon 服务的入口点。
+- `package.json`: npm 包配置文件。
+- `tsconfig.json`: TypeScript 配置文件。
 
-### Basic example
+### 基本示例
 
-Here's an example of a basic Pylon service:
+这是一个基本的 Pylon 服务示例：
 
 ```ts
 import { defineService } from '@getcronit/pylon'
@@ -62,15 +62,15 @@ export default defineService({
 })
 ```
 
-## Secure the API
+## 保护 API
 
-Pylon integrates with ZITADEL, a cloud-native identity and access management solution, to provide secure authentication and authorization for your APIs. You can easily secure your Pylon API by following the steps outlined in the [ZITADEL documentation](https://zitadel.com/docs/examples/secure-api/pylon).
+Pylon 与 ZITADEL 集成，ZITADEL 是一个云原生的身份和访问管理解决方案，为您的 API 提供安全的身份验证和授权。您可以通过遵循 [ZITADEL 文档](https://zitadel.com/docs/examples/secure-api/pylon) 中概述的步骤轻松保护您的 Pylon API。
 
-## Create a more complex API
+## 创建更复杂的 API
 
-Pylon allows you to create more complex APIs by leveraging its real-time schema generation capabilities. For more information about supported TypeScript types and how to define your API, refer to the [Pylon documentation](https://pylon.cronit.io/docs/core-concepts/type-safety-and-type-integration)
+Pylon 允许您通过利用其实时模式生成能力来创建更复杂的 API。有关支持的 TypeScript 类型以及如何定义您的 API 的更多信息，请参阅 [Pylon 文档](https://pylon.cronit.io/docs/core-concepts/type-safety-and-type-integration)
 
-This example demonstrates how to define complex types and services in Pylon. By leveraging TypeScript classes and methods, you can create powerful APIs that interact with databases, external services, and other resources.
+此示例演示了如何在 Pylon 中定义复杂类型和服务。通过利用 TypeScript 类和方法，您可以创建与数据库、外部服务和其他资源交互的强大 API。
 
 ```ts
 import { defineService } from '@getcronit/pylon'
@@ -123,20 +123,19 @@ export default defineService({
 })
 ```
 
-## Call the API
+## 调用 API
 
-The Pylon API can be called using any GraphQL client library. For development purposes, it is
-recommended to use the Pylon Playground, which is a web-based GraphQL IDE that allows you to interact with your API in real-time.
+Pylon API 可以使用任何 GraphQL 客户端库进行调用。出于开发目的，建议使用 Pylon Playground，这是一个基于网页的 GraphQL IDE，允许您实时与 API 进行交互。
 
-1. Start the Pylon server by running `bun run develop` in your project directory.
-2. Open the Pylon Playground in your browser by navigating to `http://localhost:3000/graphql`.
-3. Write your GraphQL query or mutation in the left pane.
+1. 在您的项目目录中运行 `bun run develop` 启动 Pylon 服务器。
+2. 在浏览器中通过访问 `http://localhost:3000/graphql` 打开 Pylon Playground。
+3. 在左侧窗格中编写您的 GraphQL 查询或变更。
 
 ![Pylon Playground](/images/pylon-example.png)
 
-## Get access to the Hono context
+## 获取 Hono 上下文的访问权限
 
-You can access the Hono context anywhere in your code by using the `getContext` function. This function returns the current context object, which contains information about the request, response, and other context-specific data.
+您可以通过使用 `getContext` 函数在代码中的任何位置访问 Hono 上下文。此函数返回当前上下文对象，该对象包含有关请求、响应和其他上下文特定数据的信息。
 
 ```ts
 import { defineService, getContext } from '@getcronit/pylon'
@@ -151,14 +150,13 @@ export default defineService({
 })
 ```
 
-For more information about the Hono context object and its properties, refer to the [Hono documentation](https://hono.dev/docs/api/context) and [Pylon documentation](https://pylon.cronit.io/docs/core-concepts/context-management).
+有关 Hono 上下文对象及其属性的更多信息，请参阅 [Hono 文档](https://hono.dev/docs/api/context) 和 [Pylon 文档](https://pylon.cronit.io/docs/core-concepts/context-management)。
 
-## Where does Hono fit in?
+## Hono 在哪里适用？
 
-Pylon is built on top of Hono, a lightweight web framework for building web applications and APIs. Hono provides the core functionality for handling HTTP requests and responses, while Pylon extends this functionality to support GraphQL API development.
+Pylon 是建立在 Hono 之上的一个轻量级网络框架，用于构建网络应用程序和 API。Hono 提供了处理 HTTP 请求和响应的核心功能，而 Pylon 扩展了这些功能以支持 GraphQL API 的开发。
 
-Besides GraphQL, you can also build routes and middleware. By using the `configureApp` export
-it is possible to get access to the underlying Hono app instance and add routes and middleware.
+除了 GraphQL，您还可以构建路由和中间件。通过使用 `configureApp` 导出，可以访问底层的 Hono 应用实例并添加路由和中间件。
 
 ```ts
 import { defineService, PylonAPI } from '@getcronit/pylon'
@@ -179,15 +177,15 @@ export const configureApp: PylonAPI['configureApp'] = (app) => {
 }
 ```
 
-## Conclusion
+## 结论
 
-Pylon is a powerful web framework that simplifies the development of GraphQL APIs. By leveraging TypeScript type definitions, Pylon provides real-time schema generation, enhancing type safety and reducing errors. With Pylon, you can quickly build secure and scalable APIs that meet your business requirements. Pylons integration with Hono allows you to use all the features of Hono while focusing on GraphQL API development.
+Pylon 是一个强大的网络框架，简化了 GraphQL API 的开发。通过利用 TypeScript 类型定义，Pylon 提供实时的模式生成，增强了类型安全性并减少了错误。使用 Pylon，您可以快速构建满足业务需求的安全且可扩展的 API。Pylon 与 Hono 的集成使您能够在专注于 GraphQL API 开发的同时使用 Hono 的所有功能。
 
-For more information about Pylon, check out the [official documentation](https://pylon.cronit.io).
+有关 Pylon 的更多信息，请查看 [官方文档](https://pylon.cronit.io).
 
-## See also
+## 另请参见
 
 - [Pylon](https://github.com/getcronit/pylon)
-- [Pylon documentation](https://pylon.cronit.io)
-- [Hono documentation](https://hono.dev/docs)
-- [ZITADEL documentation](https://zitadel.com/docs/examples/secure-api/pylon)
+- [Pylon 文档](https://pylon.cronit.io)
+- [Hono 文档](https://hono.dev/docs)
+- [ZITADEL 文档](https://zitadel.com/docs/examples/secure-api/pylon)

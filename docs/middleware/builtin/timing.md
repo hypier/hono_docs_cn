@@ -1,14 +1,12 @@
-# Server-Timing Middleware
+# Server-Timing 中间件
 
-The [Server-Timing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) Middleware provides
-performance metrics in the response headers.
+[Server-Timing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) 中间件在响应头中提供性能指标。
 
 ::: info
-Note: On Cloudflare Workers, the timer metrics may not be accurate,
-since [timers only show the time of last I/O](https://developers.cloudflare.com/workers/learning/security-model/#step-1-disallow-timers-and-multi-threading).
+注意：在 Cloudflare Workers 上，计时器指标可能不准确，因为 [计时器仅显示最后 I/O 的时间](https://developers.cloudflare.com/workers/learning/security-model/#step-1-disallow-timers-and-multi-threading)。
 :::
 
-## Import
+## 导入
 
 ```ts [npm]
 import { Hono } from 'hono'
@@ -16,7 +14,7 @@ import { timing, setMetric, startTime, endTime } from 'hono/timing'
 import type { TimingVariables } from 'hono/timing'
 ```
 
-## Usage
+## 用法
 
 ```js
 // Specify the variable types to infer the `c.get('metric')`:
@@ -46,7 +44,7 @@ app.get('/', async (c) => {
 });
 ```
 
-### Conditionally enabled
+### 条件启用
 
 ```ts
 const app = new Hono()
@@ -54,41 +52,41 @@ const app = new Hono()
 app.use(
   '*',
   timing({
-    // c: Context of the request
+    // c: 请求的上下文
     enabled: (c) => c.req.method === 'POST',
   })
 )
 ```
 
-## Result
+## 结果
 
-![Example timing output](/images/timing-example.png)
+![示例时间输出](/images/timing-example.png)
 
-## Options
+## 选项
 
-### <Badge type="info" text="optional" /> total: `boolean`
+### <Badge type="info" text="可选" /> total: `boolean`
 
-Show the total response time. The default is `true`.
+显示总响应时间。默认值为 `true`。
 
 ### <Badge type="info" text="optional" /> enabled: `boolean` | `(c: Context) => boolean`
 
-Whether timings should be added to the headers or not. The default is `true`.
+是否应将时间添加到标题中。默认值为 `true`。
 
-### <Badge type="info" text="optional" /> totalDescription: `boolean`
+### <Badge type="info" text="可选" /> totalDescription: `boolean`
 
-Description for the total response time. The default is `Total Response Time`.
+总响应时间的描述。默认值为 `总响应时间`。
 
-### <Badge type="info" text="optional" /> autoEnd: `boolean`
+### <Badge type="info" text="可选" /> autoEnd: `boolean`
 
-If `startTime()` should end automatically at the end of the request.
-If disabled, not manually ended timers will not be shown.
+如果 `startTime()` 应该在请求结束时自动结束。
+如果禁用，则不会显示未手动结束的计时器。
 
 ### <Badge type="info" text="optional" /> crossOrigin: `boolean` | `string` | `(c: Context) => boolean | string`
 
-The origin this timings header should be readable.
+此时间头的来源应可读。
 
-- If false, only from current origin.
-- If true, from all origin.
-- If string, from this domain(s). Multiple domains must be separated with a comma.
+- 如果为 false，仅来自当前来源。
+- 如果为 true，来自所有来源。
+- 如果为 string，来自此域。多个域必须用逗号分隔。
 
-The default is `false`. See more [docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin).
+默认值为 `false`。查看更多 [docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin)。

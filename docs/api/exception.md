@@ -1,10 +1,10 @@
 # Exception
 
-When a fatal error occurs, such as authentication failure, an HTTPException must be thrown.
+当发生致命错误(例如身份验证失败)时，必须引发HTTPException。
 
-## throw HTTPException
+## 抛出 HTTPException
 
-This example throws an HTTPException from the middleware.
+此示例从中间件抛出一个 HTTPException。
 
 ```ts
 import { HTTPException } from 'hono/http-exception'
@@ -12,7 +12,7 @@ import { HTTPException } from 'hono/http-exception'
 // ...
 
 app.post('/auth', async (c, next) => {
-  // authentication
+  // 认证
   if (authorized === false) {
     throw new HTTPException(401, { message: 'Custom error message' })
   }
@@ -20,7 +20,7 @@ app.post('/auth', async (c, next) => {
 })
 ```
 
-You can specify the response to be returned back to the user.
+您可以指定返回给用户的响应。
 
 ```ts
 const errorResponse = new Response('Unauthorized', {
@@ -32,9 +32,9 @@ const errorResponse = new Response('Unauthorized', {
 throw new HTTPException(401, { res: errorResponse })
 ```
 
-## Handling HTTPException
+## 处理 HTTPException
 
-You can handle the thrown HTTPException with `app.onError`.
+您可以使用 `app.onError` 处理抛出的 HTTPException。
 
 ```ts
 import { HTTPException } from 'hono/http-exception'
@@ -43,7 +43,7 @@ import { HTTPException } from 'hono/http-exception'
 
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
-    // Get the custom response
+    // 获取自定义响应
     return err.getResponse()
   }
   //...
@@ -52,7 +52,7 @@ app.onError((err, c) => {
 
 ## `cause`
 
-The `cause` option is available to add a [`cause`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) data.
+`cause` 选项可用于添加 [`cause`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) 数据。
 
 ```ts
 app.post('/auth', async (c, next) => {

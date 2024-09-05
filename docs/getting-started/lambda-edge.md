@@ -1,16 +1,16 @@
 # Lambda@Edge
 
-[Lambda@Edge](https://aws.amazon.com/lambda/edge/) is a serverless platform by Amazon Web Services. It allows you to run Lambda functions at Amazon CloudFront's edge locations, enabling you to customize behaviors for HTTP requests/responses.
+[Lambda@Edge](https://aws.amazon.com/lambda/edge/) 是亚马逊网络服务提供的无服务器平台。它允许您在亚马逊 CloudFront 的边缘位置运行 Lambda 函数，从而使您能够自定义 HTTP 请求/响应的行为。
 
-Hono supports Lambda@Edge with the Node.js 18+ environment.
+Hono 支持使用 Node.js 18+ 环境的 Lambda@Edge。
 
-## 1. Setup
+## 1. 设置
 
-When creating the application on Lambda@Edge,
+在 Lambda@Edge 上创建应用时，
 [CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
-is useful to setup the functions such as CloudFront, IAM Role, API Gateway, and others.
+对于设置 CloudFront、IAM Role、API Gateway 等功能非常有用。
 
-Initialize your project with the `cdk` CLI.
+使用 `cdk` CLI 初始化您的项目。
 
 ::: code-group
 
@@ -48,9 +48,9 @@ mkdir lambda
 
 :::
 
-## 2. Hello World
+## 2. 你好，世界
 
-Edit `lambda/index_edge.ts`.
+编辑 `lambda/index_edge.ts`。
 
 ```ts
 import { Hono } from 'hono'
@@ -63,9 +63,9 @@ app.get('/', (c) => c.text('Hello Hono on Lambda@Edge!'))
 export const handler = handle(app)
 ```
 
-## 3. Deploy
+## 3. 部署
 
-Edit `bin/my-app.ts`.
+编辑 `bin/my-app.ts`。
 
 ```ts
 #!/usr/bin/env node
@@ -82,7 +82,7 @@ new MyAppStack(app, 'MyAppStack', {
 })
 ```
 
-Edit `lambda/cdk-stack.ts`.
+编辑 `lambda/cdk-stack.ts`。
 
 ```ts
 import { Construct } from 'constructs'
@@ -104,7 +104,7 @@ export class MyAppStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_20_X,
     })
 
-    // Upload any html
+    // 上传任何 html
     const originBucket = new s3.Bucket(this, 'originBucket')
 
     new cloudfront.Distribution(this, 'Cdn', {
@@ -122,15 +122,15 @@ export class MyAppStack extends cdk.Stack {
 }
 ```
 
-Finally, run the command to deploy:
+最后，运行命令进行部署：
 
 ```sh
 cdk deploy
 ```
 
-## Callback
+## 回调
 
-If you want to add Basic Auth and continue with request processing after verification, you can use `c.env.callback()`
+如果您想添加基本身份验证并在验证后继续处理请求，可以使用 `c.env.callback()`
 
 ```ts
 import { Hono } from 'hono'

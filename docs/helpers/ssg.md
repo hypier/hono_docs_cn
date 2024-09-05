@@ -1,12 +1,12 @@
 # SSG Helper
 
-SSG Helper generates a static site from your Hono application. It will retrieve the contents of registered routes and save them as static files.
+SSG Helper 从您的 Hono 应用程序生成静态网站。它将检索注册路由的内容并将其保存为静态文件。
 
-## Usage
+## 用法
 
-### Manual
+### 手册
 
-If you have a simple Hono application like the following:
+如果您有一个简单的 Hono 应用程序，如下所示：
 
 ```tsx
 // index.tsx
@@ -35,7 +35,7 @@ app.get('/about', (c) => {
 export default app
 ```
 
-For Node.js, create a build script like this:
+对于 Node.js，创建一个构建脚本，如下所示：
 
 ```ts
 // build.ts
@@ -46,28 +46,28 @@ import fs from 'fs/promises'
 toSSG(app, fs)
 ```
 
-By executing the script, the files will be output as follows:
+执行脚本后，文件将输出如下：
 
 ```bash
 ls ./static
 about.html  index.html
 ```
 
-### Vite Plugin
+### Vite 插件
 
-Using the `@hono/vite-ssg` Vite Plugin, you can easily handle the process.
+使用 `@hono/vite-ssg` Vite 插件，您可以轻松处理该过程。
 
-For more details, see here:
+有关更多详细信息，请查看这里：
 
 https://github.com/honojs/vite-plugins/tree/main/packages/ssg
 
 ## toSSG
 
-`toSSG` is the main function for generating static sites, taking an application and a filesystem module as arguments. It is based on the following:
+`toSSG` 是生成静态站点的主要函数，接受一个应用程序和一个文件系统模块作为参数。它基于以下内容：
 
-### Input
+### 输入
 
-The arguments for toSSG are specified in ToSSGInterface.
+toSSG 的参数在 ToSSGInterface 中指定。
 
 ```ts
 export interface ToSSGInterface {
@@ -79,8 +79,8 @@ export interface ToSSGInterface {
 }
 ```
 
-- `app` specifies `new Hono()` with registered routes.
-- `fs` specifies the following object, assuming `node:fs/promise`.
+- `app` 指定为 `new Hono()`，并注册了路由。
+- `fs` 指定为以下对象，假设为 `node:fs/promise`。
 
 ```ts
 export interface FileSystemModule {
@@ -92,11 +92,11 @@ export interface FileSystemModule {
 }
 ```
 
-### Using adapters for Deno and Bun
+### 在 Deno 和 Bun 中使用适配器
 
-If you want to use SSG on Deno or Bun, a `toSSG` function is provided for each file system.
+如果您想在 Deno 或 Bun 上使用 SSG，针对每个文件系统提供了一个 `toSSG` 函数。
 
-For Deno:
+对于 Deno：
 
 ```ts
 import { toSSG } from 'hono/deno'
@@ -104,7 +104,7 @@ import { toSSG } from 'hono/deno'
 toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 ```
 
-For Bun:
+对于 Bun：
 
 ```ts
 import { toSSG } from 'hono/bun'
@@ -112,9 +112,9 @@ import { toSSG } from 'hono/bun'
 toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 ```
 
-### Options
+### 选项
 
-Options are specified in the ToSSGOptions interface.
+选项在 ToSSGOptions 接口中指定。
 
 ```ts
 export interface ToSSGOptions {
@@ -127,15 +127,15 @@ export interface ToSSGOptions {
 }
 ```
 
-- `dir` is the output destination for Static files. The default value is `./static`.
-- `concurrency` is the concurrent number of files to be generated at the same time. The default value is `2`.
-- `extensionMap` is a map containing the `Content-Type` as a key and the string of the extension as a value. This is used to determine the file extension of the output file.
+- `dir` 是静态文件的输出目录。默认值为 `./static`。
+- `concurrency` 是同时生成的文件的并发数。默认值为 `2`。
+- `extensionMap` 是一个映射，包含 `Content-Type` 作为键，扩展名的字符串作为值。用于确定输出文件的文件扩展名。
 
-Each Hook will be described later.
+每个 Hook 会在后面描述。
 
-### Output
+### 输出
 
-`toSSG` returns the result in the following Result type.
+`toSSG` 返回以下结果类型的结果。
 
 ```ts
 export interface ToSSGResult {
@@ -147,7 +147,7 @@ export interface ToSSGResult {
 
 ## Hook
 
-You can customize the process of `toSSG` by specifying the following custom hooks in options.
+您可以通过在选项中指定以下自定义钩子来定制 `toSSG` 的过程。
 
 ```ts
 export type BeforeRequestHook = (req: Request) => Request | false
@@ -159,9 +159,9 @@ export type AfterGenerateHook = (
 
 ### BeforeRequestHook/AfterResponseHook
 
-`toSSG` targets all routes registered in app, but if there are routes you want to exclude, you can filter them by specifying a Hook.
+`toSSG` 目标是应用中注册的所有路由，但如果有要排除的路由，可以通过指定 Hook 进行过滤。
 
-For example, if you want to output only GET requests, filter `req.method` in `beforeRequestHook`.
+例如，如果您只想输出 GET 请求，可以在 `beforeRequestHook` 中过滤 `req.method`。
 
 ```ts
 toSSG(app, fs, {
@@ -174,7 +174,7 @@ toSSG(app, fs, {
 })
 ```
 
-For example, if you want to output only when StatusCode is 200 or 500, filter `res.status` in `afterResponseHook`.
+例如，如果您只想在状态码为 200 或 500 时输出，可以在 `afterResponseHook` 中过滤 `res.status`。
 
 ```ts
 toSSG(app, fs, {
@@ -189,7 +189,7 @@ toSSG(app, fs, {
 
 ### AfterGenerateHook
 
-Use `afterGenerateHook` if you want to hook the result of `toSSG`.
+使用 `afterGenerateHook` 如果您想要挂钩 `toSSG` 的结果。
 
 ```ts
 toSSG(app, fs, {
@@ -201,21 +201,21 @@ toSSG(app, fs, {
 })
 ```
 
-## Generate File
+## 生成文件
 
-### Route and Filename
+### 路由和文件名
 
-The following rules apply to the registered route information and the generated file name. The default `./static` behaves as follows:
+以下规则适用于注册的路由信息和生成的文件名。默认的 `./static` 的行为如下：
 
 - `/` -> `./static/index.html`
 - `/path` -> `./static/path.html`
 - `/path/` -> `./static/path/index.html`
 
-### File Extension
+### 文件扩展名
 
-The file extension depends on the `Content-Type` returned by each route. For example, responses from `c.html` are saved as `.html`.
+文件扩展名取决于每个路由返回的 `Content-Type`。例如，来自 `c.html` 的响应保存为 `.html`。
 
-If you want to customize the file extensions, set the `extensionMap` option.
+如果您想自定义文件扩展名，请设置 `extensionMap` 选项。
 
 ```ts
 import { toSSG, defaultExtensionMap } from 'hono/ssg'
@@ -229,7 +229,7 @@ toSSG(app, fs, {
 })
 ```
 
-Note that paths ending with a slash are saved as index.ext regardless of the extension.
+请注意，以斜杠结尾的路径将保存为 index.ext，而不管扩展名是什么。
 
 ```ts
 // save to ./static/html/index.html
@@ -239,15 +239,15 @@ app.get('/html/', (c) => c.html('html'))
 app.get('/text/', (c) => c.text('text'))
 ```
 
-## Middleware
+## 中间件
 
-Introducing built-in middleware that supports SSG.
+引入支持 SSG 的内置中间件。
 
 ### ssgParams
 
-You can use an API like `generateStaticParams` of Next.js.
+您可以使用类似于 Next.js 的 `generateStaticParams` 的 API。
 
-Example:
+示例：
 
 ```ts
 app.get(
@@ -272,7 +272,7 @@ app.get(
 
 ### disableSSG
 
-Routes with the `disableSSG` middleware set are excluded from static file generation by `toSSG`.
+设置了 `disableSSG` 中间件的路由将被 `toSSG` 排除在静态文件生成之外。
 
 ```ts
 app.get('/api', disableSSG(), (c) => c.text('an-api'))
@@ -280,7 +280,7 @@ app.get('/api', disableSSG(), (c) => c.text('an-api'))
 
 ### onlySSG
 
-Routes with the `onlySSG` middleware set will be overridden by `c.notFound()` after `toSSG` execution.
+设置了 `onlySSG` 中间件的路由将在执行 `toSSG` 后被 `c.notFound()` 覆盖。
 
 ```ts
 app.get('/static-page', onlySSG(), (c) => c.html(<h1>Welcome to my site</h1>))

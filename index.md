@@ -1,42 +1,42 @@
 ---
-title: Hono - Ultrafast web framework for the Edges
+title: Hono - 超快的边缘网页框架
 titleTemplate: ':title'
 head:
   - [
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
+        content: 'Hono是一个小巧、简单且超快的边缘网页框架。它可以在Cloudflare Workers、Fastly Compute、Deno、Bun、Vercel、Netlify、AWS Lambda、Lambda@Edge和Node.js上运行。快速，但不仅仅是快速。',
       },
     ]
 layout: home
 hero:
   name: Hono
-  text: Web application framework
-  tagline: Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.
+  text: 网页应用框架
+  tagline: 快速、轻量，基于Web标准。支持任何JavaScript运行时。
   image:
     src: /images/code.webp
     alt: Hono
   actions:
     - theme: brand
-      text: Get Started
+      text: 开始使用
       link: /docs/
     - theme: alt
-      text: View on GitHub
+      text: 在GitHub上查看
       link: https://github.com/honojs/hono
 features:
   - icon: 🚀
-    title: Ultrafast & Lightweight
-    details: The router RegExpRouter is really fast. The hono/tiny preset is under 14kB. Using only Web Standard APIs.
+    title: 超快与轻量
+    details: 路由器RegExpRouter非常快。hono/tiny预设小于14kB。仅使用Web标准API。
   - icon: 🌍
-    title: Multi-runtime
-    details: Works on Cloudflare, Fastly, Deno, Bun, AWS, or Node.js. The same code runs on all platforms.
+    title: 多运行时
+    details: 可在Cloudflare、Fastly、Deno、Bun、AWS或Node.js上运行。相同的代码可以在所有平台上运行。
   - icon: 🔋
-    title: Batteries Included
-    details: Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
+    title: 内置功能
+    details: Hono具有内置中间件、自定义中间件、第三方中间件和辅助功能。内置功能齐全。
   - icon: 😃
-    title: Delightful DX
-    details: Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+    title: 令人愉快的开发体验
+    details: 超级干净的API。一流的TypeScript支持。现在，我们有了“类型”。
 ---
 
 <script setup>

@@ -1,22 +1,21 @@
 # Bearer Auth Middleware
 
-The Bearer Auth Middleware provides authentication by verifying an API token in the Request header.
-The HTTP clients accessing the endpoint will add the `Authorization` header with `Bearer {token}` as the header value.
+Bearer Auth Middleware 提供通过验证请求头中的 API 令牌进行身份验证。访问该端点的 HTTP 客户端将添加 `Authorization` 头，值为 `Bearer {token}`。
 
-Using `curl` from the terminal, it would look like this:
+使用终端中的 `curl`，看起来像这样：
 
 ```sh
 curl -H 'Authorization: Bearer honoiscool' http://localhost:8787/auth/page
 ```
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { bearerAuth } from 'hono/bearer-auth'
 ```
 
-## Usage
+## 使用方法
 
 ```ts
 const app = new Hono()
@@ -26,11 +25,11 @@ const token = 'honoiscool'
 app.use('/api/*', bearerAuth({ token }))
 
 app.get('/api/page', (c) => {
-  return c.json({ message: 'You are authorized' })
+  return c.json({ message: '您已获得授权' })
 })
 ```
 
-To restrict to a specific route + method:
+要限制特定路由 + 方法：
 
 ```ts
 const app = new Hono()
@@ -38,15 +37,15 @@ const app = new Hono()
 const token = 'honoiscool'
 
 app.get('/api/page', (c) => {
-  return c.json({ message: 'Read posts' })
+  return c.json({ message: '读取帖子' })
 })
 
 app.post('/api/page', bearerAuth({ token }), (c) => {
-  return c.json({ message: 'Created post!' }, 201)
+  return c.json({ message: '已创建帖子！' }, 201)
 })
 ```
 
-To implement multiple tokens (E.g., any valid token can read but create/update/delete are restricted to a privileged token):
+实现多个令牌（例如，任何有效的令牌可以读取，但创建/更新/删除仅限于特权令牌）：
 
 ```ts
 const app = new Hono()
@@ -56,20 +55,20 @@ const privilegedToken = 'read+write'
 const privilegedMethods = ['POST', 'PUT', 'PATCH', 'DELETE']
 
 app.on('GET', '/api/page/*', async (c, next) => {
-  // List of valid tokens
+  // 有效令牌列表
   const bearer = bearerAuth({ token: [readToken, privilegedToken] })
   return bearer(c, next)
 })
 app.on(privilegedMethods, '/api/page/*', async (c, next) => {
-  // Single valid privileged token
+  // 单个有效特权令牌
   const bearer = bearerAuth({ token: privilegedToken })
   return bearer(c, next)
 })
 
-// Define handlers for GET, POST, etc.
+// 定义 GET、POST 等处理程序
 ```
 
-If you want to verify the value of the token yourself, specify the `verifyToken` option; returning `true` means it is accepted.
+如果您想自己验证令牌的值，请指定 `verifyToken` 选项；返回 `true` 表示接受。
 
 ```ts
 const app = new Hono()
@@ -86,27 +85,27 @@ app.use(
 
 ## Options
 
-### <Badge type="danger" text="required" /> token: `string` | `string[]`
+### <Badge type="danger" text="必填" /> token: `string` | `string[]`
 
-The string to validate the incoming bearer token against.
+用于验证传入的承载令牌的字符串。
 
-### <Badge type="info" text="optional" /> realm: `string`
+### <Badge type="info" text="可选" /> realm: `string`
 
-The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `""`.
-See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+realm 的域名，作为返回的 WWW-Authenticate 挑战头的一部分。默认值为 `""`。
+查看更多信息： https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
 
-### <Badge type="info" text="optional" /> prefix: `string`
+### <Badge type="info" text="可选" /> 前缀: `string`
 
-The prefix (or known as `schema`) for the Authorization header value. The default is `"Bearer"`.
+Authorization 头部值的前缀（或称为 `schema`）。默认值为 `"Bearer"`。
 
-### <Badge type="info" text="optional" /> headerName: `string`
+### <Badge type="info" text="可选" /> headerName: `string`
 
-The header name. The default value is `Authorization`.
+请求头名称。默认值为 `Authorization`。
 
-### <Badge type="info" text="optional" /> hashFunction: `Function`
+### <Badge type="info" text="可选" /> hashFunction: `Function`
 
-A function to handle hashing for safe comparison of authentication tokens.
+一个用于处理哈希以安全比较身份验证令牌的函数。
 
-### <Badge type="info" text="optional" /> verifyToken: `(token: string, c: Context) => boolean | Promise<boolean>`
+### <Badge type="info" text="可选" /> verifyToken: `(token: string, c: Context) => boolean | Promise<boolean>`
 
-The function to verify the token.
+用于验证令牌的函数。

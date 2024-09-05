@@ -1,22 +1,20 @@
-# Validation
+# 验证
 
-Hono provides only a very thin Validator.
-But, it can be powerful when combined with a third-party Validator.
-In addition, the RPC feature allows you to share API specifications with your clients through types.
+Hono 仅提供一个非常简单的 Validator。  
+但是，当与第三方 Validator 结合使用时，它可以变得强大。  
+此外，RPC 功能允许您通过类型与客户共享 API 规格。
 
-## Manual validator
+## 手动验证器
 
-First, introduce a way to validate incoming values without using the third-party Validator.
+首先，介绍一种在不使用第三方验证器的情况下验证传入值的方法。
 
-Import `validator` from `hono/validator`.
+从 `hono/validator` 导入 `validator`。
 
 ```ts
 import { validator } from 'hono/validator'
 ```
 
-To validate form data, specify `form` as the first argument and a callback as the second argument.
-In the callback, validates the value and return the validated values at the end.
-The `validator` can be used as middleware.
+要验证表单数据，将 `form` 指定为第一个参数，并将回调函数作为第二个参数。在回调函数中，验证值并在最后返回验证后的值。`validator` 可以作为中间件使用。
 
 ```ts
 app.post(
@@ -33,7 +31,7 @@ app.post(
   //...
 ```
 
-Within the handler you can get the validated value with `c.req.valid('form')`.
+在处理程序中，可以使用 `c.req.valid('form')` 获取验证后的值。
 
 ```ts
 , (c) => {
@@ -48,11 +46,11 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 }
 ```
 
-Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
+验证目标包括 `json`、`query`、`header`、`param` 和 `cookie`，除了 `form`。
 
-## Multiple validators
+## 多个验证器
 
-You can also include multiple validators to validate different parts of request:
+您还可以包含多个验证器来验证请求的不同部分：
 
 ```ts
 app.post(
@@ -65,12 +63,12 @@ app.post(
   }
 ```
 
-## With Zod
+## 使用 Zod
 
-You can use [Zod](https://zod.dev), one of third-party validators.
-We recommend using a third-party validator.
+您可以使用 [Zod](https://zod.dev)，这是一个第三方验证器。
+我们建议使用第三方验证器。
 
-Install from the Npm registry.
+从 Npm 注册表安装。
 
 ::: code-group
 
@@ -92,13 +90,13 @@ bun add zod
 
 :::
 
-Import `z` from `zod`.
+从 `zod` 导入 `z`。
 
 ```ts
 import { z } from 'zod'
 ```
 
-Write your schema.
+编写您的模式。
 
 ```ts
 const schema = z.object({
@@ -106,7 +104,7 @@ const schema = z.object({
 })
 ```
 
-You can use the schema in the callback function for validation and return the validated value.
+您可以在回调函数中使用模式进行验证并返回验证后的值。
 
 ```ts
 const route = app.post(
@@ -131,9 +129,9 @@ const route = app.post(
 )
 ```
 
-## Zod Validator Middleware
+## Zod 验证器中间件
 
-You can use the [Zod Validator Middleware](https://github.com/honojs/middleware/tree/main/packages/zod-validator) to make it even easier.
+您可以使用 [Zod 验证器中间件](https://github.com/honojs/middleware/tree/main/packages/zod-validator) 来简化操作。
 
 ::: code-group
 
@@ -155,13 +153,13 @@ bun add @hono/zod-validator
 
 :::
 
-And import `zValidator`.
+并导入 `zValidator`。
 
 ```ts
 import { zValidator } from '@hono/zod-validator'
 ```
 
-And write as follows.
+并按如下方式编写。
 
 ```ts
 const route = app.post(
@@ -174,7 +172,7 @@ const route = app.post(
   ),
   (c) => {
     const validated = c.req.valid('form')
-    // ... use your validated data
+    // ... 使用您的验证数据
   }
 )
 ```

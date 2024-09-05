@@ -1,13 +1,12 @@
 # Fastly Compute
 
-[Fastly's Compute](https://www.fastly.com/products/edge-compute) offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.
+[Fastly的Compute](https://www.fastly.com/products/edge-compute) 产品使我们能够构建高规模、全球分布的应用程序，并在Fastly CDN的边缘执行代码。
 
-Hono also works on Fastly Compute.
+Hono 也在 Fastly Compute 上工作。
 
-## 1. Install CLI
+## 1. 安装 CLI
 
-To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/signup/) if you don't already have one.
-Then, install [Fastly CLI](https://github.com/fastly/cli).
+要使用 Fastly Compute，您必须 [创建一个 Fastly 账户](https://www.fastly.com/signup/)，如果您还没有的话。然后，安装 [Fastly CLI](https://github.com/fastly/cli)。
 
 macOS
 
@@ -15,15 +14,15 @@ macOS
 brew install fastly/tap/fastly
 ```
 
-Follow this link for other OS:
+请访问以下链接以获取其他操作系统的信息：
 
-- [Compute services | Fastly Developer Hub](https://developer.fastly.com/learning/compute/#download-and-install-the-fastly-cli)
+- [计算服务 | Fastly 开发者中心](https://developer.fastly.com/learning/compute/#download-and-install-the-fastly-cli)
 
-## 2. Setup
+## 2. 设置
 
-A starter for Fastly Compute is available.
-Start your project with "create-hono" command.
-Select `fastly` template for this example.
+Fastly Compute 的启动器可用。
+使用 "create-hono" 命令开始您的项目。
+选择 `fastly` 模板作为本示例。
 
 ::: code-group
 
@@ -49,7 +48,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move to `my-app` and install the dependencies.
+进入 `my-app` 并安装依赖。
 
 ::: code-group
 
@@ -75,9 +74,9 @@ bun i
 
 :::
 
-## 3. Hello World
+## 3. 你好，世界
 
-Edit `src/index.ts`:
+编辑 `src/index.ts`：
 
 ```ts
 // src/index.ts
@@ -89,9 +88,9 @@ app.get('/', (c) => c.text('Hello Fastly!'))
 app.fire()
 ```
 
-## 4. Run
+## 4. 运行
 
-Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
+在本地运行开发服务器。然后，在您的Web浏览器中访问`http://localhost:7676`。
 
 ::: code-group
 
@@ -113,7 +112,7 @@ bun run dev
 
 :::
 
-## 4. Deploy
+## 4. 部署
 
 ::: code-group
 
@@ -135,4 +134,4 @@ bun run deploy
 
 :::
 
-That's all!!
+就这些！！

@@ -1,10 +1,10 @@
-# Context
+# 上下文
 
-To handle Request and Response, you can use `Context` object.
+要处理请求和响应，可以使用 `Context` 对象。
 
 ## req
 
-`req` is the instance of HonoRequest.
+`req` 是 HonoRequest 的实例。
 
 ```ts
 app.get('/hello', (c) => {
@@ -15,13 +15,12 @@ app.get('/hello', (c) => {
 
 ## body()
 
-Return the HTTP response.
+返回 HTTP 响应。
 
-You can set headers with `c.header()` and set HTTP status code with `c.status`.
-This can also be set in `c.text()`, `c.json()` and so on.
+您可以使用 `c.header()` 设置头部，并使用 `c.status` 设置 HTTP 状态码。这也可以在 `c.text()`、`c.json()` 等中设置。
 
 ::: info
-**Note**: When returning Text or HTML, it is recommended to use `c.text()` or `c.html()`.
+**注意**：返回文本或 HTML 时，建议使用 `c.text()` 或 `c.html()`。
 :::
 
 ```ts
@@ -38,7 +37,7 @@ app.get('/welcome', (c) => {
 })
 ```
 
-You can also write the following.
+您也可以写如下代码。
 
 ```ts
 app.get('/welcome', (c) => {
@@ -49,7 +48,7 @@ app.get('/welcome', (c) => {
 })
 ```
 
-The Response is the same as below.
+响应与以下内容相同。
 
 ```ts
 new Response('Thank you for coming', {
@@ -63,7 +62,7 @@ new Response('Thank you for coming', {
 
 ## text()
 
-Render text as `Content-Type:text/plain`.
+将文本呈现为 `Content-Type:text/plain`。
 
 ```ts
 app.get('/say', (c) => {
@@ -73,7 +72,7 @@ app.get('/say', (c) => {
 
 ## json()
 
-Render JSON as `Content-Type:application/json`.
+将 JSON 渲染为 `Content-Type:application/json`。
 
 ```ts
 app.get('/api', (c) => {
@@ -83,7 +82,7 @@ app.get('/api', (c) => {
 
 ## html()
 
-Render HTML as `Content-Type:text/html`.
+将 HTML 渲染为 `Content-Type:text/html`。
 
 ```ts
 app.get('/', (c) => {
@@ -93,7 +92,7 @@ app.get('/', (c) => {
 
 ## notFound()
 
-Return the `Not Found` Response.
+返回 `Not Found` 响应。
 
 ```ts
 app.get('/notfound', (c) => {
@@ -103,7 +102,7 @@ app.get('/notfound', (c) => {
 
 ## redirect()
 
-Redirect, default status code is `302`.
+重定向，默认状态码为 `302`。
 
 ```ts
 app.get('/redirect', (c) => {
@@ -126,7 +125,7 @@ app.use('/', async (c, next) => {
 
 ## set() / get()
 
-Get and set arbitrary key-value pairs, with a lifetime of the current request. This allows passing specific values between middleware or from middleware to route handlers.
+获取和设置任意键值对，生命周期为当前请求。这允许在中间件之间或从中间件到路由处理程序之间传递特定值。
 
 ```ts
 app.use(async (c, next) => {
@@ -140,7 +139,7 @@ app.get('/', (c) => {
 })
 ```
 
-Pass the `Variables` as Generics to the constructor of `Hono` to make it type-safe.
+将 `Variables` 作为泛型传递给 `Hono` 的构造函数，以实现类型安全。
 
 ```ts
 type Variables = {
@@ -150,18 +149,17 @@ type Variables = {
 const app = new Hono<{ Variables: Variables }>()
 ```
 
-The value of `c.set` / `c.get` are retained only within the same request. They cannot be shared or persisted across different requests.
+`c.set` / `c.get` 的值仅在同一请求内保留。它们无法在不同请求之间共享或持久化。
 
 ## var
 
-You can also access the value of a variable with `c.var`.
+您也可以通过 `c.var` 访问变量的值。
 
 ```ts
 const result = c.var.client.oneMethod()
 ```
 
-If you want to create the middleware which provides a custom method,
-write like the following:
+如果您想创建一个提供自定义方法的中间件，可以如下编写：
 
 ```ts
 type Env = {
@@ -182,8 +180,7 @@ app.get('/echo', echoMiddleware, (c) => {
 })
 ```
 
-If you want to use the middleware in multiple handlers, you can use `app.use()`.
-Then, you have to pass the `Env` as Generics to the constructor of `Hono` to make it type-safe.
+如果您想在多个处理程序中使用该中间件，可以使用 `app.use()`。然后，您必须将 `Env` 作为泛型传递给 `Hono` 的构造函数，以确保类型安全。
 
 ```ts
 const app = new Hono<Env>()
@@ -197,7 +194,7 @@ app.get('/echo', (c) => {
 
 ## render() / setRenderer()
 
-You can set a layout using `c.setRenderer()` within a custom middleware.
+您可以在自定义中间件中使用 `c.setRenderer()` 设置布局。
 
 ```tsx
 app.use(async (c, next) => {
@@ -214,7 +211,7 @@ app.use(async (c, next) => {
 })
 ```
 
-Then, you can utilize `c.render()` to create responses within this layout.
+然后，您可以利用 `c.render()` 在此布局中创建响应。
 
 ```ts
 app.get('/', (c) => {
@@ -222,7 +219,7 @@ app.get('/', (c) => {
 })
 ```
 
-The output of which will be:
+其输出将是：
 
 ```html
 <html>
@@ -232,8 +229,8 @@ The output of which will be:
 </html>
 ```
 
-Additionally, this feature offers the flexibility to customize arguments.
-To ensure type safety, types can be defined as:
+此外，此功能提供了自定义参数的灵活性。
+为了确保类型安全，可以定义类型如下：
 
 ```ts
 declare module 'hono' {
@@ -246,7 +243,7 @@ declare module 'hono' {
 }
 ```
 
-Here's an example of how you can use this:
+以下是您可以如何使用此功能的示例：
 
 ```ts
 app.use('/pages/*', async (c, next) => {
@@ -291,7 +288,7 @@ app.get('/foo', async (c) => {
 })
 ```
 
-## event
+## 事件
 
 ```ts
 // Type definition to make type inference
@@ -313,8 +310,7 @@ app.get('/foo', async (c) => {
 
 ## env
 
-In Cloudflare Workers Environment variables, secrets, KV namespaces, D1 database, R2 bucket etc. that are bound to a worker are known as bindings.
-Regardless of type, bindings are always available as global variables and can be accessed via the context `c.env.BINDING_KEY`.
+在 Cloudflare Workers 中，环境变量、密钥、KV 命名空间、D1 数据库、R2 存储桶等与工作者绑定的内容被称为绑定。无论类型如何，绑定始终作为全局变量可用，可以通过上下文 `c.env.BINDING_KEY` 访问。
 
 ```ts
 // Type definition to make type inference
@@ -331,10 +327,9 @@ app.get('/', (c) => {
 })
 ```
 
-## error
+## 错误
 
-If the Handler throws an error, the error object is placed in `c.error`.
-You can access it in your middleware.
+如果 Handler 抛出错误，错误对象将放置在 `c.error` 中。您可以在中间件中访问它。
 
 ```ts
 app.use(async (c, next) => {
@@ -347,7 +342,7 @@ app.use(async (c, next) => {
 
 ## ContextVariableMap
 
-For instance, if you wish to add type definitions to variables when a specific middleware is used, you can extend `ContextVariableMap`. For example:
+例如，如果您希望在使用特定中间件时为变量添加类型定义，可以扩展 `ContextVariableMap`。例如：
 
 ```ts
 declare module 'hono' {
@@ -357,20 +352,20 @@ declare module 'hono' {
 }
 ```
 
-You can then utilize this in your middleware:
+然后您可以在中间件中使用它：
 
 ```ts
 const mw = createMiddleware(async (c, next) => {
-  c.set('result', 'some values') // result is a string
+  c.set('result', 'some values') // result 是一个字符串
   await next()
 })
 ```
 
-In a handler, the variable is inferred as the proper type:
+在处理程序中，变量被推断为正确的类型：
 
 ```ts
 app.get('/', (c) => {
-  const val = c.get('result') // val is a string
+  const val = c.get('result') // val 是一个字符串
   //...
 })
 ```

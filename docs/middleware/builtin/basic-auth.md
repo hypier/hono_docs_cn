@@ -1,18 +1,17 @@
-# Basic Auth Middleware
+# Basic Authentication Middleware
 
-This middleware can apply Basic authentication to a specified path.
-Implementing Basic authentication with Cloudflare Workers or other platforms is more complicated than it seems, but with this middleware, it's a breeze.
+This middleware can apply basic authentication to specified paths. Implementing basic authentication on Cloudflare Workers or other platforms is more complex than it seems, but with this middleware, it's a breeze.
 
-For more information about how the Basic auth scheme works under the hood, see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
+For more information about the basic authentication mechanism, see the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
 ```
 
-## Usage
+## 用法
 
 ```ts
 const app = new Hono()
@@ -26,29 +25,29 @@ app.use(
 )
 
 app.get('/auth/page', (c) => {
-  return c.text('You are authorized')
+  return c.text('您已获得授权')
 })
 ```
 
-To restrict to a specific route + method:
+要限制特定路由 + 方法：
 
 ```ts
 const app = new Hono()
 
 app.get('/auth/page', (c) => {
-  return c.text('Viewing page')
+  return c.text('查看页面')
 })
 
 app.delete(
   '/auth/page',
   basicAuth({ username: 'hono', password: 'acoolproject' }),
   (c) => {
-    return c.text('Page deleted')
+    return c.text('页面已删除')
   }
 )
 ```
 
-If you want to verify the user by yourself, specify the `verifyUser` option; returning `true` means it is accepted.
+如果您想自行验证用户，请指定 `verifyUser` 选项；返回 `true` 表示接受。
 
 ```ts
 const app = new Hono()
@@ -66,36 +65,36 @@ app.use(
 
 ## Options
 
-### <Badge type="danger" text="required" /> username: `string`
+### <Badge type="danger" text="必填" /> username: `string`
 
-The username of the user who is authenticating.
+进行身份验证的用户的用户名。
 
-### <Badge type="danger" text="required" /> password: `string`
+### <Badge type="danger" text="必填" /> 密码: `string`
 
-The password value for the provided username to authenticate against.
+用于对提供的用户名进行身份验证的密码值。
 
 ### <Badge type="info" text="optional" /> realm: `string`
 
-The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `"Secure Area"`.  
-See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+领域的域名，作为返回的 WWW-Authenticate 挑战头的一部分。默认值为 `"Secure Area"`。  
+查看更多： https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/WWW-Authenticate#directives
 
-### <Badge type="info" text="optional" /> hashFunction: `Function`
+### <Badge type="info" text="可选" /> hashFunction: `Function`
 
-A function to handle hashing for safe comparison of passwords.
+用于处理密码安全比较的哈希函数。
 
-### <Badge type="info" text="optional" /> verifyUser: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
+### <Badge type="info" text="可选" /> verifyUser: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
 
-The function to verify the user.
+用于验证用户的函数。
 
 ## More Options
 
-### <Badge type="info" text="optional" /> ...users: `{ username: string, password: string }[]`
+### <Badge type="info" text="可选" /> ...用户: `{ username: string, password: string }[]`
 
-## Recipes
+## Recipe
 
-### Defining Multiple Users
+### 定义多个用户
 
-This middleware also allows you to pass arbitrary parameters containing objects defining more `username` and `password` pairs.
+此中间件还允许您传递包含定义更多 `username` 和 `password` 对的对象的任意参数。
 
 ```ts
 app.use(
@@ -104,24 +103,24 @@ app.use(
     {
       username: 'hono',
       password: 'acoolproject',
-      // Define other params in the first object
+      // 在第一个对象中定义其他参数
       realm: 'www.example.com',
     },
     {
       username: 'hono-admin',
       password: 'super-secure',
-      // Cannot redefine other params here
+      // 这里不能重新定义其他参数
     },
     {
       username: 'hono-user-1',
       password: 'a-secret',
-      // Or here
+      // 或者在这里
     }
   )
 )
 ```
 
-Or less hardcoded:
+或者不那么硬编码：
 
 ```ts
 import { users } from '../config/users'

@@ -1,41 +1,47 @@
-# Alibaba Cloud Function Compute
+# 阿里云函数计算
 
-[Alibaba Cloud Function Compute](https://www.alibabacloud.com/en/product/function-compute) is a fully managed, event-driven compute service. Function Compute allows you to focus on writing and uploading code without having to manage infrastructure such as servers.
+[阿里云函数计算](https://www.alibabacloud.com/en/product/function-compute) 是一种完全托管的事件驱动计算服务。函数计算使您能够专注于编写和上传代码，而无需管理服务器等基础设施。
 
-## 1. Setup
+```
+# 代码示例
+def hello_world(event, context):
+    return 'Hello, World!'
+```
 
-> [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
+## 1. 设置
 
-Install [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) CLI
+> [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) 是一个开源的无服务器开发平台，致力于为开发者提供强大的工具链系统。通过该平台，开发者不仅可以一键体验多云无服务器产品，快速部署无服务器项目，还可以在无服务器应用的整个生命周期中管理项目，并与其他工具/平台简单快速地结合，以进一步提高研发、运维的效率。
+
+安装 [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) CLI
 
 ```sh
 npm install @serverless-devs/s -g
 ```
 
-Add the AK & SK configuration
+添加 AK 和 SK 配置
 
 ```sh
 s config add
-# Please select a provider: Alibaba Cloud (alibaba)
-# Input your AccessKeyID & AccessKeySecret
+# 请选择一个提供者：阿里云 (alibaba)
+# 输入您的 AccessKeyID 和 AccessKeySecret
 ```
 
 ## 2. Hello World
 
-Create a new project in a new directory:
+在新目录中创建一个新项目：
 
 ```sh
 npm init
 ```
 
-Add the required dependencies:
+添加所需的依赖项：
 
 ```sh
 npm add hono @hono/node-server
 npm add esbuild --save-dev
 ```
 
-Edit `scripts` section in `package.json`:
+编辑 `package.json` 中的 `scripts` 部分：
 
 ```json
 {
@@ -47,7 +53,7 @@ Edit `scripts` section in `package.json`:
 }
 ```
 
-Edit `src/index.ts`:
+编辑 `src/index.ts`：
 
 ```ts
 import { serve } from '@hono/node-server'
@@ -84,7 +90,7 @@ serve({
 })
 ```
 
-Edit `tsconfig.json`
+编辑 `tsconfig.json`
 
 ```json
 {
@@ -102,7 +108,7 @@ Edit `tsconfig.json`
 }
 ```
 
-Edit `s.yaml`:
+编辑 `s.yaml`：
 
 ```yaml
 edition: 3.0.0
@@ -149,9 +155,9 @@ resources:
           triggerType: http
 ```
 
-## 3. Deploy
+## 3. 部署
 
-Finally, run the command to deploy:
+最后，运行命令进行部署：
 
 ```sh
 npm install # install dependencies

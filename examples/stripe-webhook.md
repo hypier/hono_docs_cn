@@ -1,39 +1,38 @@
 # Stripe Webhook
 
-This introduces how to create an API with Hono to receive Stripe Webhook events.
+这介绍了如何使用 Hono 创建一个 API 来接收 Stripe Webhook 事件。
 
-## Preparation
+## 准备
 
-Please install the official Stripe SDK at first:
+请首先安装官方的 Stripe SDK：
 
 ```bash
 npm install stripe
 ```
 
-And put the following values on the `.dev.vars` file to insert the Stripe API keys:
+并将以下值放入 `.dev.vars` 文件中以插入 Stripe API 密钥：
 
 ```
 STRIPE_API_KEY=sk_test_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
 ```
 
-You can learn about the Stripe API keys by the following documents:
+您可以通过以下文档了解 Stripe API 密钥：
 
-- Secret Key: https://docs.stripe.com/keys
-- Webhook secret: https://docs.stripe.com/webhooks
+- 密钥： https://docs.stripe.com/keys
+- Webhook 密钥： https://docs.stripe.com/webhooks
 
-## How to protect the API for Stripe Webhook events
+## 如何保护 Stripe Webhook 事件的 API
 
-The API that processes webhook events is publicly accessible. Therefore, a mechanism is needed to protect it from attacks such as malicious third parties spoofing Stripe's webhook event objects and sending requests. In Stripe's case, you can protect the API by issuing a webhook secret and verifying each request.
+处理 webhook 事件的 API 是公开可访问的。因此，需要一个机制来保护它免受恶意第三方伪造 Stripe 的 webhook 事件对象并发送请求等攻击。在 Stripe 的情况下，您可以通过发放 webhook 密钥并验证每个请求来保护 API。
 
-Learn more: https://docs.stripe.com/webhooks?lang=node#verify-official-libraries
+了解更多： https://docs.stripe.com/webhooks?lang=node#verify-official-libraries
 
-## Implementing the Webhook API by hosting environment or framework
+## 通过托管环境或框架实现 Webhook API
 
-To perform signature verification with Stripe, the raw request body is needed.
-When using a framework, you need to ensure that the original body is not modified. If any changes are made to the raw request body, the verification will fail.
+要使用 Stripe 进行签名验证，需要原始请求体。当使用框架时，需要确保原始体未被修改。如果对原始请求体进行任何更改，验证将失败。
 
-In the case of Hono, we can get the raw request body by the `context.req.text()` method. So we can create the webhook API like the following example:
+在 Hono 的情况下，我们可以通过 `context.req.text()` 方法获取原始请求体。因此，我们可以像下面的示例一样创建 webhook API：
 
 ```ts
 import Stripe from 'stripe'
@@ -78,15 +77,15 @@ app.post('/webhook', async (context) => {
 export default app
 ```
 
-## See also
+## 另请参阅
 
-- Details on Stripe Webhooks:
+- Stripe Webhooks 的详细信息：
   https://docs.stripe.com/webhooks
-- Implementing for payment processing:
+- 实现支付处理：
   https://docs.stripe.com/payments/handling-payment-events
-- Implementing for subscriptions:
+- 实现订阅：
   https://docs.stripe.com/billing/subscriptions/webhooks
-- List of webhook events sent by Stripe:
+- Stripe 发送的 webhook 事件列表：
   https://docs.stripe.com/api/events
-- Sample template for Cloudflare:
+- Cloudflare 的示例模板：
   https://github.com/stripe-samples/stripe-node-cloudflare-worker-template/

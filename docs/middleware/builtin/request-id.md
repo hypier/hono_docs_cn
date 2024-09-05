@@ -1,17 +1,17 @@
-# Request ID Middleware
+# 请求 ID 中间件
 
-Request ID Middleware generates a unique ID for each request, which you can use in your handlers.
+请求 ID 中间件为每个请求生成一个唯一的 ID，您可以在处理程序中使用它。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { requestId } from 'hono/request-id'
 ```
 
-## Usage
+## 用法
 
-You can access the Request ID through the `requestId` variable in the handlers and middleware to which the Request ID Middleware is applied.
+您可以通过在应用了请求 ID 中间件的处理程序和中间件中的 `requestId` 变量访问请求 ID。
 
 ```ts
 const app = new Hono()
@@ -23,7 +23,7 @@ app.get('/', (c) => {
 })
 ```
 
-If you want to explicitly specify the type, import `RequestIdVariables` and pass it in the generics of `new Hono()`.
+如果您想明确指定类型，请导入 `RequestIdVariables` 并将其传递给 `new Hono()` 的泛型。
 
 ```ts
 import type { RequestIdVariables } from 'hono/request-id'
@@ -33,16 +33,16 @@ const app = new Hono<{
 }>()
 ```
 
-## Options
+## 选项
 
-### <Badge type="info" text="optional" /> limitLength: `number`
+### <Badge type="info" text="可选" /> limitLength: `number`
 
-The maximum length of the request ID. The default is `255`.
+请求 ID 的最大长度。默认值为 `255`。
 
 ### <Badge type="info" text="optional" /> headerName: `string`
 
-The header name used for the request ID. The default is `X-Request-Id`.
+用于请求 ID 的头部名称。默认值为 `X-Request-Id`。
 
-### <Badge type="info" text="optional" /> generator: `(c: Context) => string`
+### <Badge type="info" text="可选" /> 生成器: `(c: Context) => string`
 
-The request ID generation function. By default, it uses `crypto.randomUUID()`.
+请求 ID 生成函数。默认情况下，它使用 `crypto.randomUUID()`。

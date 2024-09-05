@@ -1,15 +1,15 @@
 # RPC
 
-The RPC feature allows sharing of the API specifications between the server and the client.
+RPC 功能允许在服务器和客户端之间共享 API 规范。
 
-You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will be able to import it.
+您可以导出由 Validator 指定的输入类型和 `json()` 发出的输出类型。Hono Client 将能够导入它。
 
 > [!NOTE]  
-> For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
+> 为了确保 RPC 类型在单一代码库中正常工作，请在客户端和服务器的 tsconfig.json 文件中，将 `compilerOptions` 中的 `"strict": true` 设置为 `true`。 [阅读更多。](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
 
-## Server
+## 服务器
 
-All you need to do on the server side is to write a validator and create a variable `route`. The following example uses [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator).
+您需要在服务器端做的就是编写一个验证器并创建一个变量 `route`。以下示例使用 [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator)。
 
 ```ts{1}
 const route = app.post(
@@ -34,28 +34,28 @@ const route = app.post(
 )
 ```
 
-Then, export the type to share the API spec with the Client.
+然后，导出类型以与客户端共享 API 规范。
 
 ```ts
 export type AppType = typeof route
 ```
 
-## Client
+## 客户端
 
-On the Client side, import `hc` and `AppType` first.
+在客户端，首先导入 `hc` 和 `AppType`。
 
 ```ts
 import { AppType } from '.'
 import { hc } from 'hono/client'
 ```
 
-`hc` is a function to create a client. Pass `AppType` as Generics and specify the server URL as an argument.
+`hc` 是一个创建客户端的函数。将 `AppType` 作为泛型传递，并将服务器 URL 作为参数指定。
 
 ```ts
 const client = hc<AppType>('http://localhost:8787/')
 ```
 
-Call `client.{path}.{method}` and pass the data you wish to send to the server as an argument.
+调用 `client.{path}.{method}` 并将您希望发送到服务器的数据作为参数传递。
 
 ```ts
 const res = await client.posts.$post({
@@ -66,7 +66,7 @@ const res = await client.posts.$post({
 })
 ```
 
-The `res` is compatible with the "fetch" Response. You can retrieve data from the server with `res.json()`.
+`res` 与 "fetch" 响应兼容。您可以使用 `res.json()` 从服务器检索数据。
 
 ```ts
 if (res.ok) {
@@ -75,15 +75,15 @@ if (res.ok) {
 }
 ```
 
-::: warning File Upload
+::: warning 文件上传
 
-Currently, the client does not support file uploading.
+目前，客户端不支持文件上传。
 
 :::
 
-## Status code
+## 状态码
 
-If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
+如果您在 `c.json()` 中明确指定状态码，例如 `200` 或 `404`，它将作为传递给客户端的类型添加。
 
 ```ts
 // server.ts
@@ -100,17 +100,17 @@ const app = new Hono().get(
     const post: Post | undefined = await getPost(id)
 
     if (post === undefined) {
-      return c.json({ error: 'not found' }, 404) // Specify 404
+      return c.json({ error: 'not found' }, 404) // 指定 404
     }
 
-    return c.json({ post }, 200) // Specify 200
+    return c.json({ post }, 200) // 指定 200
   }
 )
 
 export type AppType = typeof app
 ```
 
-You can get the data by the status code.
+您可以通过状态码获取数据。
 
 ```ts
 // client.ts
@@ -142,9 +142,9 @@ type ResponseType200 = InferResponseType<
 >
 ```
 
-## Path parameters
+## 路径参数
 
-You can also handle routes that include path parameters.
+您还可以处理包含路径参数的路由。
 
 ```ts
 const route = app.get(
@@ -165,7 +165,7 @@ const route = app.get(
 )
 ```
 
-Specify the string you want to include in the path with `param`.
+使用 `param` 指定您想要包含在路径中的字符串。
 
 ```ts
 const res = await client.posts[':id'].$get({
@@ -176,9 +176,9 @@ const res = await client.posts[':id'].$get({
 })
 ```
 
-## Headers
+## 头部
 
-You can append the headers to the request.
+您可以将头部附加到请求中。
 
 ```ts
 const res = await client.search.$get(
@@ -194,7 +194,7 @@ const res = await client.search.$get(
 )
 ```
 
-To add a common header to all requests, specify it as an argument to the `hc` function.
+要将公共头部添加到所有请求中，请将其作为参数指定给 `hc` 函数。
 
 ```ts
 const client = hc<AppType>('/api', {
@@ -204,9 +204,9 @@ const client = hc<AppType>('/api', {
 })
 ```
 
-## `init` option
+## `init` 选项
 
-You can pass the fetch's `RequestInit` object to the request as the `init` option. Below is an example of aborting a Request.
+您可以将 fetch 的 `RequestInit` 对象作为 `init` 选项传递给请求。下面是一个中止请求的示例。
 
 ```ts
 import { hc } from 'hono/client'
@@ -234,15 +234,15 @@ abortController.abort()
 ```
 
 ::: info
-A `RequestInit` object defined by `init` takes the highest priority. It could be used to overwrite things set by other options like `body | method | headers`.
+由 `init` 定义的 `RequestInit` 对象具有最高优先级。它可以用来覆盖其他选项设置的内容，例如 `body | method | headers`。
 :::
 
 ## `$url()`
 
-You can get a `URL` object for accessing the endpoint by using `$url()`.
+您可以通过使用 `$url()` 获取一个 `URL` 对象来访问端点。
 
 ::: warning
-You have to pass in an absolute URL for this to work. Passing in a relative URL `/` will result in the following error.
+您必须传入一个绝对 URL 才能正常工作。传入相对 URL `/` 将导致以下错误。
 
 `Uncaught TypeError: Failed to construct 'URL': Invalid URL`
 
@@ -276,11 +276,11 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
-## Custom `fetch` method
+## 自定义 `fetch` 方法
 
-You can set the custom `fetch` method.
+您可以设置自定义的 `fetch` 方法。
 
-In the following example script for Cloudflare Worker, the Service Bindings' `fetch` method is used instead of the default `fetch`.
+在以下 Cloudflare Worker 的示例脚本中，使用了服务绑定的 `fetch` 方法，而不是默认的 `fetch`。
 
 ```toml
 # wrangler.toml
@@ -296,9 +296,9 @@ const client = hc<CreateProfileType>('/', {
 })
 ```
 
-## Infer
+## 推断
 
-Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
+使用 `InferRequestType` 和 `InferResponseType` 来了解请求的对象类型和返回的对象类型。
 
 ```ts
 import type { InferRequestType, InferResponseType } from 'hono/client'
@@ -311,9 +311,9 @@ type ReqType = InferRequestType<typeof $post>['form']
 type ResType = InferResponseType<typeof $post>
 ```
 
-## Using SWR
+## 使用 SWR
 
-You can also use a React Hook library such as [SWR](https://swr.vercel.app).
+您还可以使用一个 React Hook 库，例如 [SWR](https://swr.vercel.app)。
 
 ```tsx
 import useSWR from 'swr'
@@ -340,8 +340,8 @@ const App = () => {
     })
   )
 
-  if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
+  if (error) return <div>加载失败</div>
+  if (isLoading) return <div>加载中...</div>
 
   return <h1>{data?.message}</h1>
 }
@@ -349,10 +349,10 @@ const App = () => {
 export default App
 ```
 
-## Using RPC with larger applications
+## 在大型应用程序中使用 RPC
 
-In the case of a larger application, such as the example mentioned in [Building a larger application](/docs/guides/best-practices#building-a-larger-application), you need to be careful about the type of inference.
-A simple way to do this is to chain the handlers so that the types are always inferred.
+在大型应用程序的情况下，例如在 [构建大型应用程序](/docs/guides/best-practices#building-a-larger-application) 中提到的示例，您需要小心推断的类型。 
+一种简单的方法是将处理程序链接在一起，以便类型始终被推断。
 
 ```ts
 // authors.ts
@@ -378,7 +378,7 @@ const app = new Hono()
 export default app
 ```
 
-You can then import the sub-routers as you usually would, and make sure you chain their handlers as well, since this is the top level of the app in this case, this is the type we'll want to export.
+然后，您可以像往常一样导入子路由，并确保也将它们的处理程序链接在一起，因为在这种情况下这是应用程序的顶层，这是我们想要导出的类型。
 
 ```ts
 // index.ts
@@ -394,4 +394,4 @@ export default app
 export type AppType = typeof routes
 ```
 
-You can now create a new client using the registered AppType and use it as you would normally.
+现在，您可以使用注册的 AppType 创建一个新客户端，并像往常一样使用它。

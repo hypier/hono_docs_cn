@@ -1,8 +1,8 @@
-# Adapter Helper
+# 适配器助手
 
-The Adapter Helper provides a seamless way to interact with various platforms through a unified interface.
+适配器助手通过统一的接口提供与各种平台无缝交互的方式。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
@@ -11,45 +11,45 @@ import { env, getRuntimeKey } from 'hono/adapter'
 
 ## `env()`
 
-The `env()` function facilitates retrieving environment variables across different runtimes, extending beyond just Cloudflare Workers' Bindings. The value that can be retrieved with `env(c)` may be different for each runtimes.
+`env()` 函数用于在不同的运行时中检索环境变量，超出了 Cloudflare Workers 的 Bindings。通过 `env(c)` 可以检索到的值在每个运行时中可能不同。
 
 ```ts
 import { env } from 'hono/adapter'
 
 app.get('/env', (c) => {
-  // NAME is process.env.NAME on Node.js or Bun
-  // NAME is the value written in `wrangler.toml` on Cloudflare
+  // NAME 在 Node.js 或 Bun 中是 process.env.NAME
+  // NAME 在 Cloudflare 中是 `wrangler.toml` 中写入的值
   const { NAME } = env<{ NAME: string }>(c)
   return c.text(NAME)
 })
 ```
 
-Supported Runtimes, Serverless Platforms and Cloud Services:
+支持的运行时、无服务器平台和云服务：
 
 - Cloudflare Workers
   - `wrangler.toml`
 - Deno
   - [`Deno.env`](https://docs.deno.com/runtime/manual/basics/env_variables)
-  - `.env` file
+  - `.env` 文件
 - Bun
   - [`Bun.env`](https://bun.sh/guides/runtime/set-env)
   - `process.env`
 - Node.js
   - `process.env`
 - Vercel
-  - [Environment Variables on Vercel](https://vercel.com/docs/projects/environment-variables)
+  - [Vercel 上的环境变量](https://vercel.com/docs/projects/environment-variables)
 - AWS Lambda
-  - [Environment Variables on AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/samples-blank.html#samples-blank-architecture)
+  - [AWS Lambda 上的环境变量](https://docs.aws.amazon.com/lambda/latest/dg/samples-blank.html#samples-blank-architecture)
 - Lambda@Edge\
-  Environment Variables on Lambda are [not supported](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html) by Lambda@Edge, you need to use [Lamdba@Edge event](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html) as an alternative.
+  Lambda 上的环境变量在 [Lambda@Edge 中不支持](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html)，您需要使用 [Lamdba@Edge 事件](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html) 作为替代。
 - Fastly Compute\
-  On Fastly Compute, you can use the ConfigStore to manage user-defined data.
+  在 Fastly Compute 上，您可以使用 ConfigStore 来管理用户定义的数据。
 - Netlify\
-  On Netlify, you can use the [Netlify Contexts](https://docs.netlify.com/site-deploys/overview/#deploy-contexts) to manage user-defined data.
+  在 Netlify 上，您可以使用 [Netlify 上下文](https://docs.netlify.com/site-deploys/overview/#deploy-contexts) 来管理用户定义的数据。
 
-### Specify the runtime
+### 指定运行时
 
-You can specify the runtime to get environment variables by passing the runtime key as the second argument.
+您可以通过将运行时键作为第二个参数传递来指定运行时以获取环境变量。
 
 ```ts
 app.get('/env', (c) => {
@@ -60,7 +60,7 @@ app.get('/env', (c) => {
 
 ## `getRuntimeKey()`
 
-The `getRuntimeKey()` function returns the identifier of the current runtime.
+`getRuntimeKey()` 函数返回当前运行时的标识符。
 
 ```ts
 app.get('/', (c) => {
@@ -73,9 +73,9 @@ app.get('/', (c) => {
 })
 ```
 
-### Available Runtimes Keys
+### 可用的运行时键
 
-Here are the available runtimes keys, unavailable runtime key runtimes may be supported and labeled as `other`, with some being inspired by [WinterCG's Runtime Keys](https://runtime-keys.proposal.wintercg.org/):
+以下是可用的运行时键，不可用的运行时键可能会被支持并标记为 `other`，其中一些受到 [WinterCG 的运行时键](https://runtime-keys.proposal.wintercg.org/) 的启发：
 
 - `workerd` - Cloudflare Workers
 - `deno`
@@ -83,4 +83,4 @@ Here are the available runtimes keys, unavailable runtime key runtimes may be su
 - `node`
 - `edge-light` - Vercel Edge Functions
 - `fastly` - Fastly Compute
-- `other` - Other unknown runtimes keys
+- `other` - 其他未知的运行时键

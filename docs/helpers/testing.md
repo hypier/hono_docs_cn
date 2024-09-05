@@ -1,8 +1,8 @@
-# Testing Helper
+# 测试助手
 
-The Testing Helper provides functions to make testing of Hono applications easier.
+测试助手提供了简化 Hono 应用程序测试的功能。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
@@ -11,7 +11,7 @@ import { testClient } from 'hono/testing'
 
 ## `testClient()`
 
-The `testClient()` takes an instance of Hono as its first argument and returns an object of the [Hono Client](/docs/guides/rpc#client). By using this, you can define your request with the editor completion.
+`testClient()` 的第一个参数是 Hono 的实例，并返回一个 [Hono Client](/docs/guides/rpc#client) 对象。通过使用这个，你可以在编辑器中完成请求的定义。
 
 ```ts
 import { testClient } from 'hono/testing'

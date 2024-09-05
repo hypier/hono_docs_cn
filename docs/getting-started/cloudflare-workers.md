@@ -1,17 +1,17 @@
 # Cloudflare Workers
 
-[Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
+[Cloudflare Workers](https://workers.cloudflare.com) 是 Cloudflare CDN 上的 JavaScript 边缘运行时。
 
-You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
-Wrangler includes trans compiler, so we can write the code with TypeScript.
+您可以在本地开发应用程序，并使用 [Wrangler](https://developers.cloudflare.com/workers/wrangler/) 通过几个命令发布它。
+Wrangler 包含转译器，因此我们可以使用 TypeScript 编写代码。
 
-Let’s make your first application for Cloudflare Workers with Hono.
+让我们使用 Hono 创建您的第一个 Cloudflare Workers 应用程序。
 
-## 1. Setup
+## 1. 设置
 
-A starter for Cloudflare Workers is available.
-Start your project with "create-hono" command.
-Select `cloudflare-workers` template for this example.
+可以使用 Cloudflare Workers 的启动器。  
+使用 "create-hono" 命令开始您的项目。  
+选择 `cloudflare-workers` 模板作为本示例。
 
 ::: code-group
 
@@ -37,7 +37,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move to `my-app` and install the dependencies.
+进入 `my-app` 并安装依赖。
 
 ::: code-group
 
@@ -63,9 +63,9 @@ bun i
 
 :::
 
-## 2. Hello World
+## 2. 你好，世界
 
-Edit `src/index.ts` like below.
+编辑 `src/index.ts` 如下所示。
 
 ```ts
 import { Hono } from 'hono'
@@ -76,9 +76,9 @@ app.get('/', (c) => c.text('Hello Cloudflare Workers!'))
 export default app
 ```
 
-## 3. Run
+## 3. 运行
 
-Run the development server locally. Then, access `http://localhost:8787` in your web browser.
+在本地运行开发服务器。然后，在您的网页浏览器中访问 `http://localhost:8787`。
 
 ::: code-group
 
@@ -100,9 +100,9 @@ bun run dev
 
 :::
 
-## 4. Deploy
+## 4. 部署
 
-If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
+如果您有一个 Cloudflare 账户，您可以部署到 Cloudflare。在 `package.json` 中，`$npm_execpath` 需要更改为您选择的包管理器。
 
 ::: code-group
 
@@ -124,11 +124,11 @@ bun run deploy
 
 :::
 
-That's all!
+就是这样！
 
-## Service Worker mode or Module Worker mode
+## Service Worker 模式或 Module Worker 模式
 
-There are two syntaxes for writing the Cloudflare Workers. _Module Worker mode_ and _Service Worker mode_. Using Hono, you can write with both syntax, but we recommend using Module Worker mode so that binding variables are localized.
+有两种语法用于编写 Cloudflare Workers。_Module Worker 模式_和 _Service Worker 模式_。使用 Hono，您可以使用这两种语法进行编写，但我们建议使用 Module Worker 模式，以便绑定变量是局部的。
 
 ```ts
 // Module Worker
@@ -140,11 +140,11 @@ export default app
 app.fire()
 ```
 
-## Using Hono with other event handlers
+## 在其他事件处理程序中使用 Hono
 
-You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_.
+您可以在 _模块 Worker 模式_ 中将 Hono 与其他事件处理程序（例如 `scheduled`）集成。
 
-To do this, export `app.fetch` as the module's `fetch` handler, and then implement other handlers as needed:
+为此，将 `app.fetch` 导出为模块的 `fetch` 处理程序，然后根据需要实现其他处理程序：
 
 ```ts
 const app = new Hono()
@@ -155,22 +155,22 @@ export default {
 }
 ```
 
-## Serve static files
+## 提供静态文件
 
 ::: warning
-This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/docs/getting-started/cloudflare-pages) instead of Cloudflare Workers.
+此“提供静态文件”功能已被 Cloudflare Workers 弃用。如果您想创建一个提供静态资源文件的应用程序，请使用 [Cloudflare Pages](/docs/getting-started/cloudflare-pages) 而不是 Cloudflare Workers。
 :::
 
-You need to set it up to serve static files.
-Static files are distributed by using Workers Sites.
-To enable this feature, edit `wrangler.toml` and specify the directory where the static files will be placed.
+您需要设置以提供静态文件。
+静态文件通过 Workers Sites 分发。
+要启用此功能，请编辑 `wrangler.toml` 并指定静态文件将放置的目录。
 
 ```toml
 [site]
 bucket = "./assets"
 ```
 
-Then create the `assets` directory and place the files there.
+然后创建 `assets` 目录并将文件放置在其中。
 
 ```
 ./
@@ -188,7 +188,7 @@ Then create the `assets` directory and place the files there.
 └── wrangler.toml
 ```
 
-Then use "Adapter".
+然后使用“适配器”。
 
 ```ts
 import { Hono } from 'hono'
@@ -203,7 +203,7 @@ app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:8787/static/*` to `./assets/statics`, you can use the `rewriteRequestPath` option:
+如果您想将 `http://localhost:8787/static/*` 映射到 `./assets/statics`，您可以使用 `rewriteRequestPath` 选项：
 
 ```ts
 app.get(
@@ -218,7 +218,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+您可以使用 `mimes` 添加 MIME 类型：
 
 ```ts
 app.get(
@@ -234,7 +234,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `onNotFound`:
+您可以使用 `onNotFound` 指定在请求的文件未找到时的处理方式：
 
 ```ts
 app.get(
@@ -247,9 +247,9 @@ app.get(
 )
 ```
 
-## Types
+## 类型
 
-You have to install `@cloudflare/workers-types` if you want to have workers types.
+您必须安装 `@cloudflare/workers-types` 如果您想要使用工作类型。
 
 ::: code-group
 
@@ -271,12 +271,12 @@ bun add --dev @cloudflare/workers-types
 
 :::
 
-## Testing
+## 测试
 
-For testing, we recommend using `jest-environment-miniflare`.
-Refer to [examples](https://github.com/honojs/examples) for setting it up.
+对于测试，我们推荐使用 `jest-environment-miniflare`。
+有关设置的参考，请查看 [examples](https://github.com/honojs/examples)。
 
-If there is the application below.
+如果有如下应用程序。
 
 ```ts
 import { Hono } from 'hono'
@@ -285,7 +285,7 @@ const app = new Hono()
 app.get('/', (c) => c.text('Please test me!'))
 ```
 
-We can test if it returns "_200 OK_" Response with this code.
+我们可以使用以下代码测试它是否返回 "_200 OK_" 响应。
 
 ```ts
 describe('Test the application', () => {
@@ -296,9 +296,9 @@ describe('Test the application', () => {
 })
 ```
 
-## Bindings
+## 绑定
 
-In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
+在 Cloudflare Workers 中，我们可以绑定环境值、KV 命名空间、R2 存储桶或 Durable Object。您可以在 `c.env` 中访问它们。如果您将 "_type struct_" 传递给 `Hono` 作为泛型，它将具有类型。
 
 ```ts
 type Bindings = {
@@ -309,7 +309,7 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-// Access to environment values
+// 访问环境值
 app.put('/upload/:key', async (c, next) => {
   const key = c.req.param('key')
   await c.env.MY_BUCKET.put(key, c.req.body)
@@ -317,10 +317,10 @@ app.put('/upload/:key', async (c, next) => {
 })
 ```
 
-## Using Variables in Middleware
+## 在中间件中使用变量
 
-This is the only case for Module Worker mode.
-If you want to use Variables or Secret Variables in Middleware, for example, "username" or "password" in Basic Authentication Middleware, you need to write like the following.
+这是模块工作模式的唯一情况。
+如果您想在中间件中使用变量或秘密变量，例如在基本身份验证中使用的“username”或“password”，您需要像下面这样编写。
 
 ```ts
 import { basicAuth } from 'hono/basic-auth'
@@ -343,17 +343,17 @@ app.use('/auth/*', async (c, next) => {
 })
 ```
 
-The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
+同样适用于 Bearer 身份验证中间件、JWT 身份验证或其他中间件。
 
-## Deploy from Github Action
+## 从 Github Action 部署
 
-Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+在通过 CI 将代码部署到 Cloudflare 之前，您需要一个 Cloudflare 令牌。您可以从这里管理： https://dash.cloudflare.com/profile/api-tokens
 
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
+如果这是一个新创建的令牌，请选择 **Edit Cloudflare Workers** 模板，如果您已经有其他令牌，请确保该令牌具有相应的权限（不，令牌权限在 Cloudflare 页面和 Cloudflare Worker 之间不共享）。
 
-then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+然后转到您的 Github 仓库设置仪表板： `Settings->Secrets and variables->Actions->Repository secrets`，并添加一个名为 `CLOUDFLARE_API_TOKEN` 的新秘密。
 
-then create `.github/workflows/deploy.yml` in your hono project root folder,paste the following code:
+然后在您的 hono 项目根文件夹中创建 `.github/workflows/deploy.yml`，并粘贴以下代码：
 
 ```yml
 name: Deploy
@@ -375,30 +375,30 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 ```
 
-then edit `wrangler.toml`, and add this code after `compatibility_date` line.
+然后编辑 `wrangler.toml`，并在 `compatibility_date` 行后添加以下代码。
 
 ```toml
 main = "src/index.ts"
 minify = true
 ```
 
-Everything is ready! Now push the code and enjoy it.
+一切准备就绪！现在推送代码并享受吧。
 
-## Load env when local development
+## 本地开发时加载环境变量
 
-To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
-Then configure your environment variables as you would with a normal env file.
+要为本地开发配置环境变量，请在项目的根目录中创建 `.dev.vars` 文件。  
+然后像使用普通 env 文件一样配置您的环境变量。
 
 ```
 SECRET_KEY=value
 API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
 
-> For more about this section you can find in the Cloudflare documentation:
+> 有关此部分的更多信息，请参见 Cloudflare 文档：  
 > https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
 
-Then we use the `c.env.*` to get the environment variables in our code.  
-**For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
+然后我们使用 `c.env.*` 在代码中获取环境变量。  
+**对于 Cloudflare Workers，环境变量必须通过 `c` 获取，而不是通过 `process.env`。**
 
 ```ts
 type Bindings = {
@@ -413,7 +413,7 @@ app.get('/env', (c) => {
 })
 ```
 
-Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
+在将项目部署到 Cloudflare 之前，请记得在 Cloudflare Worker 项目的配置中设置环境变量/秘密。
 
-> For more about this section you can find in the Cloudflare documentation:
+> 有关此部分的更多信息，请参见 Cloudflare 文档：  
 > https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard

@@ -1,14 +1,14 @@
 # Netlify
 
-Netlify provides static site hosting and serverless backend services. [Edge Functions](https://docs.netlify.com/edge-functions/overview/) enables us make the web pages dynamic.
+Netlify 提供静态网站托管和无服务器后端服务。[Edge Functions](https://docs.netlify.com/edge-functions/overview/) 使我们能够使网页动态化。
 
-Edge Functions support writing in Deno and TypeScript, and deployment is made easy through the [Netlify CLI](https://docs.netlify.com/cli/get-started/). With Hono, you can create the application for Netlify Edge Functions.
+Edge Functions 支持使用 Deno 和 TypeScript 编写，并通过 [Netlify CLI](https://docs.netlify.com/cli/get-started/) 轻松部署。使用 Hono，您可以为 Netlify Edge Functions 创建应用程序。
 
-## 1. Setup
+## 1. 设置
 
-A starter for Netlify is available.
-Start your project with "create-hono" command.
-Select `netlify` template for this example.
+Netlify 有一个启动器可用。  
+使用 "create-hono" 命令启动您的项目。  
+在此示例中选择 `netlify` 模板。
 
 ::: code-group
 
@@ -34,11 +34,11 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move into `my-app`.
+进入 `my-app`。
 
 ## 2. Hello World
 
-Edit `netlify/edge-functions/index.ts`:
+编辑 `netlify/edge-functions/index.ts`:
 
 ```ts
 import { Hono } from 'jsr:@hono/hono'
@@ -53,17 +53,17 @@ app.get('/', (c) => {
 export default handle(app)
 ```
 
-## 3. Run
+## 3. 运行
 
-Run the development server with Netlify CLI. Then, access `http://localhost:8888` in your Web browser.
+使用 Netlify CLI 运行开发服务器。然后，在您的 Web 浏览器中访问 `http://localhost:8888`。
 
 ```sh
 netlify dev
 ```
 
-## 4. Deploy
+## 4. 部署
 
-You can deploy with a `netlify deploy` command.
+您可以使用 `netlify deploy` 命令进行部署。
 
 ```sh
 netlify deploy --prod
@@ -71,7 +71,7 @@ netlify deploy --prod
 
 ## `Context`
 
-You can access the Netlify's `Context` through `c.env`:
+您可以通过 `c.env` 访问 Netlify 的 `Context`：
 
 ```ts
 import { Hono } from 'jsr:@hono/hono'

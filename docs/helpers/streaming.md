@@ -1,8 +1,8 @@
-# Streaming Helper
+# 流媒体助手
 
-The Streaming Helper provides methods for streaming responses.
+流媒体助手提供用于流式响应的方法。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
@@ -11,7 +11,7 @@ import { stream, streamText, streamSSE } from 'hono/streaming'
 
 ## `stream()`
 
-It returns a simple streaming response as `Response` object.
+它返回一个简单的流响应，作为 `Response` 对象。
 
 ```ts
 app.get('/stream', (c) => {
@@ -30,7 +30,7 @@ app.get('/stream', (c) => {
 
 ## `streamText()`
 
-It returns a streaming response with `Content-Type:text/plain`, `Transfer-Encoding:chunked`, and `X-Content-Type-Options:nosniff` headers.
+它返回一个带有 `Content-Type:text/plain`、`Transfer-Encoding:chunked` 和 `X-Content-Type-Options:nosniff` 头的流式响应。
 
 ```ts
 app.get('/streamText', (c) => {
@@ -47,7 +47,7 @@ app.get('/streamText', (c) => {
 
 ## `streamSSE()`
 
-It allows you to stream Server-Sent Events (SSE) seamlessly.
+它允许您无缝地流式传输服务器发送事件（SSE）。
 
 ```ts
 const app = new Hono()
@@ -68,41 +68,41 @@ app.get('/sse', async (c) => {
 })
 ```
 
-## Error Handling
+## 错误处理
 
-The third argument of the streaming helper is an error handler.
-This argument is optional, if you don't specify it, the error will be output as a console error.
+流助手的第三个参数是错误处理程序。  
+此参数是可选的，如果不指定，它将作为控制台错误输出。
 
 ```ts
 app.get('/stream', (c) => {
   return stream(
     c,
     async (stream) => {
-      // Write a process to be executed when aborted.
+      // 写一个在中止时执行的过程。
       stream.onAbort(() => {
         console.log('Aborted!')
       })
-      // Write a Uint8Array.
+      // 写入一个 Uint8Array。
       await stream.write(
         new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f])
       )
-      // Pipe a readable stream.
+      // 管道一个可读流。
       await stream.pipe(anotherReadableStream)
     },
     (err, stream) => {
-      stream.writeln('An error occurred!')
+      stream.writeln('发生错误！')
       console.error(err)
     }
   )
 })
 ```
 
-The stream will be automatically closed after the callbacks are executed.
+在回调执行后，流将自动关闭。
 
 ::: warning
 
-If the callback function of the streaming helper throws an error, the `onError` event of Hono will not be triggered.
+如果流助手的回调函数抛出错误，Hono 的 `onError` 事件将不会被触发。
 
-`onError` is a hook to handle errors before the response is sent and overwrite the response. However, when the callback function is executed, the stream has already started, so it cannot be overwritten.
+`onError` 是在响应发送之前处理错误并覆盖响应的钩子。然而，当回调函数执行时，流已经开始，因此无法被覆盖。
 
 :::

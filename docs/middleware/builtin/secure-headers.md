@@ -1,24 +1,24 @@
-# Secure Headers Middleware
+# 安全头部中间件
 
-Secure Headers Middleware simplifies the setup of security headers. Inspired in part by the capabilities of Helmet, it allows you to control the activation and deactivation of specific security headers.
+安全头部中间件简化了安全头部的设置。部分受Helmet功能的启发，它允许您控制特定安全头部的启用和禁用。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { secureHeaders } from 'hono/secure-headers'
 ```
 
-## Usage
+## 使用方法
 
-You can use the optimal settings by default.
+您可以默认使用最佳设置。
 
 ```ts
 const app = new Hono()
 app.use(secureHeaders())
 ```
 
-You can suppress unnecessary headers by setting them to false.
+您可以通过将不必要的头设置为 false 来抑制它们。
 
 ```ts
 const app = new Hono()
@@ -31,7 +31,7 @@ app.use(
 )
 ```
 
-You can override default header values using a string.
+您可以使用字符串覆盖默认头值。
 
 ```ts
 const app = new Hono()
@@ -46,21 +46,21 @@ app.use(
 )
 ```
 
-## Supported Options
+## 支持的选项
 
-Each option corresponds to the following Header Key-Value pairs.
+每个选项对应以下标题键值对。
 
-| Option                        | Header                                                                                                                           | Value                                                                      | Default    |
+| 选项                          | 头部                                                                                                                             | 值                                                                        | 默认值     |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- |
-| -                             | X-Powered-By                                                                                                                     | (Delete Header)                                                            | True       |
-| contentSecurityPolicy         | [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)                                                 | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
+| -                             | X-Powered-By                                                                                                                     | (删除头部)                                                                | True       |
+| contentSecurityPolicy         | [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)                                                 | 用法: [设置内容安全策略](#setting-content-security-policy)               | 无设置     |
 | crossOriginEmbedderPolicy     | [Cross-Origin-Embedder-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)                 | require-corp                                                               | **False**  |
 | crossOriginResourcePolicy     | [Cross-Origin-Resource-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy)           | same-origin                                                                | True       |
 | crossOriginOpenerPolicy       | [Cross-Origin-Opener-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy)               | same-origin                                                                | True       |
 | originAgentCluster            | [Origin-Agent-Cluster](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin-Agent-Cluster)                           | ?1                                                                         | True       |
 | referrerPolicy                | [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)                                     | no-referrer                                                                | True       |
-| reportingEndpoints            | [Reporting-Endpoints](https://www.w3.org/TR/reporting-1/#header)                                                                 | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
-| reportTo                      | [Report-To](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)                         | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
+| reportingEndpoints            | [Reporting-Endpoints](https://www.w3.org/TR/reporting-1/#header)                                                                 | 用法: [设置内容安全策略](#setting-content-security-policy)               | 无设置     |
+| reportTo                      | [Report-To](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)                         | 用法: [设置内容安全策略](#setting-content-security-policy)               | 无设置     |
 | strictTransportSecurity       | [Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)                 | max-age=15552000; includeSubDomains                                        | True       |
 | xContentTypeOptions           | [X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)                       | nosniff                                                                    | True       |
 | xDnsPrefetchControl           | [X-DNS-Prefetch-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control)                       | off                                                                        | True       |
@@ -69,11 +69,11 @@ Each option corresponds to the following Header Key-Value pairs.
 | xPermittedCrossDomainPolicies | [X-Permitted-Cross-Domain-Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies) | none                                                                       | True       |
 | xXssProtection                | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)                                   | 0                                                                          | True       |
 
-## Middleware Conflict
+## 中间件冲突
 
-Please be cautious about the order of specification when dealing with middleware that manipulates the same header.
+处理操作相同头部的中间件时，请注意规范的顺序。
 
-In this case, Secure-headers operates and the `x-powered-by` is removed:
+在这种情况下，Secure-headers 生效，`x-powered-by` 被移除：
 
 ```ts
 const app = new Hono()
@@ -81,7 +81,7 @@ app.use(secureHeaders())
 app.use(poweredBy())
 ```
 
-In this case, Powered-By operates and the `x-powered-by` is added:
+在这种情况下，Powered-By 生效，`x-powered-by` 被添加：
 
 ```ts
 const app = new Hono()
@@ -89,7 +89,7 @@ app.use(poweredBy())
 app.use(secureHeaders())
 ```
 
-## Setting Content-Security-Policy
+## 设置内容安全策略
 
 ```ts
 const app = new Hono()
@@ -102,7 +102,7 @@ app.use(
         url: 'https://example.com/reports',
       },
     ],
-    // -- or alternatively
+    // -- 或者
     // reportTo: [
     //   {
     //     group: 'endpoint-1',
@@ -138,9 +138,9 @@ app.use(
 )
 ```
 
-### `nonce` attribute
+### `nonce` 属性
 
-You can add a [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to a `script` or `style` element by adding the `NONCE` imported from `hono/secure-headers` to a `scriptSrc` or `styleSrc`:
+您可以通过将从 `hono/secure-headers` 导入的 `NONCE` 添加到 `scriptSrc` 或 `styleSrc`，为 `script` 或 `style` 元素添加一个 [`nonce` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce)：
 
 ```tsx
 import { secureHeaders, NONCE } from 'hono/secure-headers'
@@ -177,7 +177,7 @@ app.get('/', (c) => {
 })
 ```
 
-If you want to generate the nonce value yourself, you can also specify a function as the following:
+如果您想自己生成 nonce 值，您也可以指定一个函数，如下所示：
 
 ```tsx
 const app = new Hono<{

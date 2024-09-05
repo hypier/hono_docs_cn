@@ -1,15 +1,15 @@
 # JWT Auth Middleware
 
-The JWT Auth Middleware provides authentication by verifying the token with JWT.
-The middleware will check for an `Authorization` header if the `cookie` option is not set.
+JWT Auth Middleware通过验证JWT令牌提供身份验证。
+如果未设置`cookie`选项，中间件将检查`Authorization`头。
 
 :::info
-The Authorization header sent from the client must have a specified scheme.
+从客户端发送的Authorization头必须具有指定的方案。
 
-Example: `Bearer my.token.value` or `Basic my.token.value`
+示例：`Bearer my.token.value` 或 `Basic my.token.value`
 :::
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
@@ -17,10 +17,10 @@ import { jwt } from 'hono/jwt'
 import type { JwtVariables } from 'hono/jwt'
 ```
 
-## Usage
+## 用法
 
 ```ts
-// Specify the variable types to infer the `c.get('jwtPayload')`:
+// 指定变量类型以推断 `c.get('jwtPayload')`：
 type Variables = JwtVariables
 
 const app = new Hono<{ Variables: Variables }>()
@@ -33,11 +33,11 @@ app.use(
 )
 
 app.get('/auth/page', (c) => {
-  return c.text('You are authorized')
+  return c.text('您已获得授权')
 })
 ```
 
-Get payload:
+获取负载：
 
 ```ts
 const app = new Hono()
@@ -51,13 +51,13 @@ app.use(
 
 app.get('/auth/page', (c) => {
   const payload = c.get('jwtPayload')
-  return c.json(payload) // eg: { "sub": "1234567890", "name": "John Doe", "iat": 1516239022 }
+  return c.json(payload) // 例如: { "sub": "1234567890", "name": "John Doe", "iat": 1516239022 }
 })
 ```
 
-::: tip
+::: 提示
 
-`jwt()` is just a middleware function. If you want to use an environment variable (eg: `c.env.JWT_SECRET`), you can use it as follows:
+`jwt()` 只是一个中间件函数。如果您想使用环境变量（例如：`c.env.JWT_SECRET`），可以按如下方式使用：
 
 ```js
 app.use('/auth/*', (c, next) => {
@@ -70,19 +70,19 @@ app.use('/auth/*', (c, next) => {
 
 :::
 
-## Options
+## 选项
 
-### <Badge type="danger" text="required" /> secret: `string`
+### <Badge type="danger" text="必填" /> secret: `string`
 
-A value of your secret key.
+您秘密密钥的值。
 
-### <Badge type="info" text="optional" /> cookie: `string`
+### <Badge type="info" text="可选" /> cookie: `string`
 
-If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+如果设置了此值，则将使用该值作为键从 cookie 头中检索该值，然后将其验证为令牌。
 
-### <Badge type="info" text="optional" /> alg: `string`
+### <Badge type="info" text="可选" /> alg: `string`
 
-An algorithm type that is used for verifying.  
-The default is `HS256`.
+用于验证的算法类型。  
+默认值为 `HS256`。
 
-Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.
+可用类型有 `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`。

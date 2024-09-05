@@ -1,66 +1,66 @@
-# Using Prisma on Cloudflare Workers
+# 在 Cloudflare Workers 上使用 Prisma
 
-There are two ways to use Prisma with Cloudflare Workers, we will be using Prisma Accelerate, but you can also use the Prisma [Driver Adapter](https://www.prisma.io/docs/orm/overview/databases/database-drivers).
+有两种方法可以在 Cloudflare Workers 中使用 Prisma，我们将使用 Prisma Accelerate，但您也可以使用 Prisma [Driver Adapter](https://www.prisma.io/docs/orm/overview/databases/database-drivers)。
 
-### Install Prisma
+### 安装 Prisma
 
-Install Prisma on your Hono Cloudflare Workers. Here, I am using neon.tech free tier as my PostgreSQL database, but you can use whichever database suits your project.
+在您的 Hono Cloudflare Workers 上安装 Prisma。在这里，我使用 neon.tech 的免费套餐作为我的 PostgreSQL 数据库，但您可以使用适合您项目的任何数据库。
 
-Go to [neon.tech](https://neon.tech/) and create a free PostgreSQL database.
+访问 [neon.tech](https://neon.tech/) 并创建一个免费的 PostgreSQL 数据库。
 
 ```bash
 npm i prisma --save-dev
 npx prisma init
 ```
 
-## Setup Prisma Accelerate
+## 设置 Prisma Accelerate
 
-To setup Accelerate, go to [Prisma Accelerate](https://www.prisma.io/data-platform/accelerate?via=start&gad_source=1&gclid=CjwKCAjwvIWzBhAlEiwAHHWgvX8l8e7xQtqurVYanQ6LmbNheNvCB-4FL0G6BFEfPrUdGyH3qSllqxoCXDoQAvD_BwE) and log in or register for free.
+要设置 Accelerate，请访问 [Prisma Accelerate](https://www.prisma.io/data-platform/accelerate?via=start&gad_source=1&gclid=CjwKCAjwvIWzBhAlEiwAHHWgvX8l8e7xQtqurVYanQ6LmbNheNvCB-4FL0G6BFEfPrUdGyH3qSllqxoCXDoQAvD_BwE) 并登录或免费注册。
 
-After logging in, you will be taken to a page where you can create a new Accelerate project.
+登录后，您将进入一个可以创建新 Accelerate 项目的页面。
 
 ![Accelerate Page](/images/prismaAcceleratePage.png)
 
-Create a new project by clicking the `New project` button, and name your project.
+通过点击 `New project` 按钮创建一个新项目，并为您的项目命名。
 
 ![Accelerate Page](/images/accelerateCreateProject.png)
 
-You will then be taken to a page like the one below:
+接下来，您将进入如下所示的页面：
 
 ![Accelerate Edit Page](/images/accelerateProjectPage.png)
 
-Click the `Enable Accelerate` button, and you will be taken to the following page:
+点击 `Enable Accelerate` 按钮，您将进入下一个页面：
 
 ![Enable Page](/images/EnableAccelerate.png)
 
-Paste your neon.tech database connection string into the `database connection string` field, choose your region, and click the `Enable Accelerate` button.
+将您的 neon.tech 数据库连接字符串粘贴到 `database connection string` 字段，选择您的区域，然后点击 `Enable Accelerate` 按钮。
 
-You will see something like this:
+您将看到类似于以下内容的界面：
 
 ![API Key](/images/generateApiKey.png)
 
-Click `Generate API Key` and you will receive a new API key similar to the one below:
+点击 `Generate API Key`，您将收到一个新的 API 密钥，类似于以下内容：
 
 ```bash
 DATABASE_URL="prisma://accelerate...."
 ```
 
-Copy this `DATABASE_URL` and store it in `.dev.vars` and `.env` so that prisma cli can access it later on.
+复制此 `DATABASE_URL` 并将其存储在 `.dev.vars` 和 `.env` 中，以便 prisma cli 后续可以访问。
 
-## Set Up Prisma in Your Project
+## 在您的项目中设置 Prisma
 
-The neon.tech URL you received can also be used as an alternative and provide Prisma with more options, so store it for later use:
+您收到的 neon.tech URL 也可以作为替代方案，并为 Prisma 提供更多选项，因此请将其存储以备后用：
 
 ::: code-group
 
 ```bash [.dev.vars]
 DATABASE_URL="your_prisma_accelerate_url"
-DIRECT_URL="your_neon_tech_url
+DIRECT_URL="your_neon_tech_url"
 ```
 
 :::
 
-Now, go to your `schema.prisma` file and set the URLs like this:
+现在，转到您的 `schema.prisma` 文件并像这样设置 URLs：
 
 ::: code-group
 
@@ -78,7 +78,7 @@ datasource db {
 
 :::
 
-Create a function like this, which you can use in your project later:
+创建一个这样的函数，您可以在项目中稍后使用：
 
 ::: code-group
 
@@ -96,7 +96,7 @@ export const getPrisma = (database_url: string) => {
 
 :::
 
-Here is an example of how you can use this function in your project:
+以下是如何在项目中使用此函数的示例：
 
 ::: code-group
 
@@ -105,7 +105,7 @@ import { Hono } from 'hono'
 import { sign, verify } from 'hono/jwt'
 import { getPrisma } from '../usefulFun/prismaFun'
 
-// Create the main Hono app
+// 创建主 Hono 应用
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string
@@ -117,7 +117,7 @@ const app = new Hono<{
 }>()
 
 app.post('/', async (c) => {
-  // Now you can use it wherever you want
+  // 现在您可以在任何地方使用它
   const prisma = getPrisma(c.env.DATABASE_URL)
 })
 ```

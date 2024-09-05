@@ -1,35 +1,35 @@
 # Deno
 
-[Deno](https://deno.com/) is a JavaScript runtime built on V8. It's not Node.js.
-Hono also works on Deno.
+[Deno](https://deno.com/) 是一个基于 V8 的 JavaScript 运行时。它不是 Node.js。  
+Hono 也可以在 Deno 上运行。
 
-You can use Hono, write the code with TypeScript, run the application with the `deno` command, and deploy it to "Deno Deploy".
+您可以使用 Hono，使用 TypeScript 编写代码，使用 `deno` 命令运行应用程序，并将其部署到 "Deno Deploy"。
 
-## 1. Install Deno
+## 1. 安装 Deno
 
-First, install `deno` command.
-Please refer to [the official document](https://docs.deno.com/runtime/manual/getting_started/installation).
+首先，安装 `deno` 命令。
+请参考 [官方文档](https://docs.deno.com/runtime/manual/getting_started/installation)。
 
-## 2. Setup
+## 2. 设置
 
-A starter for Deno is available.
-Start your project with "create-hono" command.
+可以使用 Deno 的启动器。
+使用 "create-hono" 命令开始您的项目。
 
 ```sh
 deno run -A npm:create-hono my-app
 ```
 
-Select `deno` template for this example.
+为此示例选择 `deno` 模板。
 
-Move into `my-app`. For Deno, you don't have to install Hono explicitly.
+进入 `my-app`。对于 Deno，您不需要显式安装 Hono。
 
 ```sh
 cd my-app
 ```
 
-## 3. Hello World
+## 3. 你好，世界
 
-Write your first application.
+编写您的第一个应用程序。
 
 ```ts
 import { Hono } from 'hono'
@@ -41,26 +41,26 @@ app.get('/', (c) => c.text('Hello Deno!'))
 Deno.serve(app.fetch)
 ```
 
-## 4. Run
+## 4. 运行
 
-Just this command:
+只需执行以下命令：
 
 ```sh
 deno task start
 ```
 
-## Change port number
+## 更改端口号
 
-You can specify the port number by updating the arguments of `Deno.serve` in `main.ts`:
+您可以通过更新 `main.ts` 中 `Deno.serve` 的参数来指定端口号：
 
 ```ts
 Deno.serve(app.fetch) // [!code --]
 Deno.serve({ port: 8787 }, app.fetch) // [!code ++]
 ```
 
-## Serve static files
+## 提供静态文件
 
-To serve static files, use `serveStatic` imported from `hono/middleware.ts`.
+要提供静态文件，请使用从 `hono/middleware.ts` 导入的 `serveStatic`。
 
 ```ts
 import { Hono } from 'hono'
@@ -76,7 +76,7 @@ app.get('*', serveStatic({ path: './static/fallback.txt' }))
 Deno.serve(app.fetch)
 ```
 
-For the above code, it will work well with the following directory structure.
+对于上述代码，它将在以下目录结构中正常工作。
 
 ```
 ./
@@ -93,7 +93,7 @@ For the above code, it will work well with the following directory structure.
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:8000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+如果您想将 `http://localhost:8000/static/*` 映射到 `./statics`，可以使用 `rewriteRequestPath` 选项：
 
 ```ts
 app.get(
@@ -108,7 +108,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+您可以使用 `mimes` 添加 MIME 类型：
 
 ```ts
 app.get(
@@ -124,7 +124,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `onNotFound`:
+您可以使用 `onNotFound` 指定在请求的文件未找到时的处理方式：
 
 ```ts
 app.get(
@@ -139,15 +139,15 @@ app.get(
 
 ## Deno Deploy
 
-Deno Deploy is an edge runtime platform for Deno.
-We can publish the application world widely on Deno Deploy.
+Deno Deploy 是一个用于 Deno 的边缘运行时平台。  
+我们可以在 Deno Deploy 上将应用程序发布到全球。
 
-Hono also supports Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
+Hono 也支持 Deno Deploy。请参考 [官方文档](https://docs.deno.com/deploy/manual/)。
 
-## Testing
+## 测试
 
-Testing the application on Deno is easy.
-You can write with `Deno.test` and use `assert` or `assertEquals` from [@std/assert](https://jsr.io/@std/assert).
+在 Deno 上测试应用程序很简单。  
+您可以使用 `Deno.test` 并从 [@std/assert](https://jsr.io/@std/assert) 中使用 `assert` 或 `assertEquals`。
 
 ```sh
 deno add @std/assert
@@ -166,15 +166,15 @@ Deno.test('Hello World', async () => {
 })
 ```
 
-Then run the command:
+然后运行命令：
 
 ```sh
 deno test hello.ts
 ```
 
-## `npm:` specifier
+## `npm:` 说明符
 
-`npm:hono` is also available. You can use it by fixing the `deno.json`:
+`npm:hono` 也可用。您可以通过固定 `deno.json` 来使用它：
 
 ```json
 {
@@ -185,9 +185,9 @@ deno test hello.ts
 }
 ```
 
-You can use either `npm:hono` or `jsr:@hono/hono`.
+您可以使用 `npm:hono` 或 `jsr:@hono/hono`。
 
-If you want to use Third-party Middleware such as `npm:@hono/zod-validator` with the TypeScript Type inferences, you need to use the `npm:` specifier.
+如果您想使用第三方中间件，例如 `npm:@hono/zod-validator`，并希望获得 TypeScript 类型推断，您需要使用 `npm:` 说明符。
 
 ```json
 {

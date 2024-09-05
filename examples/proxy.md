@@ -1,4 +1,4 @@
-# Proxy
+# 代理
 
 ```ts
 import { Hono } from 'hono'
@@ -21,16 +21,16 @@ export default app
 ```
 
 ::: tip
-If you can see `Can't modify immutable headers.` error with a similar code, you need to clone the response object.
+如果您在类似代码中看到 `Can't modify immutable headers.` 错误，您需要克隆响应对象。
 
 ```ts
 app.get('/', async (_c) => {
   const response = await fetch('https://example.com')
-  // clone the response to return a response with modifiable headers
+  // 克隆响应以返回一个可修改头部的响应
   const newResponse = new Response(response.body, response)
   return newResponse
 })
 ```
 
-The headers of `Response` returned by `fetch` are immutable. So, an error will occur if you modify it.
+通过 `fetch` 返回的 `Response` 的头部是不可变的。因此，如果您修改它，将会发生错误。
 :::

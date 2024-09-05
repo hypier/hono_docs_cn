@@ -1,22 +1,22 @@
-# Repository for hono.dev
+# hono.dev 的代码库
 
-This is a repository for the Hono website "_[hono.dev](https://hono.dev)_".
+这是 Hono 网站 "_[hono.dev](https://hono.dev)_" 的代码库。
 
 ## Features
 
-- Built with [VitePress](https://vitepress.vuejs.org)
-- Deploy to Cloudflare Pages
+- Built on [VitePress](https://vitepress.vuejs.org)
+- Deployed to Cloudflare Pages
 - Not using Hono :)
 
-## Contribution
+## 贡献
 
-Contribution welcome!
-You can help us by adding explanations, correcting grammar, or fixing a typo.
+欢迎贡献！
+您可以通过添加解释、纠正语法或修复拼写错误来帮助我们。
 
-## License
+## 许可证
 
 MIT
 
-## Author
+## 作者
 
 Yusuke Wada <https://github.com/yusukebe>

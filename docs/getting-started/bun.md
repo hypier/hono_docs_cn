@@ -1,33 +1,32 @@
 # Bun
 
-[Bun](https://bun.sh) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, we can write the code with TypeScript.
-Hono also works on Bun.
+[Bun](https://bun.sh) is another JavaScript runtime. It is not Node.js or Deno. Bun includes a transpiler, allowing us to write code using TypeScript. Hono can also run on Bun.
 
-## 1. Install Bun
+## 1. 安装 Bun
 
-To install `bun` command, follow the instruction in [the official web site](https://bun.sh).
+要安装 `bun` 命令，请按照 [官方网站](https://bun.sh) 中的说明进行操作。
 
-## 2. Setup
+## 2. 设置
 
-### 2.1. Setup a new project
+### 2.1. 设置新项目
 
-A starter for Bun is available. Start your project with "bun create" command.
-Select `bun` template for this example.
+Bun 提供了一个启动器。使用 "bun create" 命令开始你的项目。 
+选择 `bun` 模板作为本例的示例。
 
 ```sh
 bun create hono my-app
 ```
 
-Move into my-app and install the dependencies.
+进入 my-app 并安装依赖。
 
 ```sh
 cd my-app
 bun install
 ```
 
-### 2.2. Setup an existing project
+### 2.2. 设置现有项目
 
-On an existing Bun project, we only need to install `hono` dependencies on the project root directory via
+在现有的 Bun 项目中，我们只需通过以下命令在项目根目录安装 `hono` 依赖：
 
 ```sh
 bun add hono
@@ -35,7 +34,7 @@ bun add hono
 
 ## 3. Hello World
 
-"Hello World" script is below. Almost the same as writing on other platforms.
+"Hello World" 脚本如下。几乎与在其他平台上编写的相同。
 
 ```ts
 import { Hono } from 'hono'
@@ -46,19 +45,19 @@ app.get('/', (c) => c.text('Hello Bun!'))
 export default app
 ```
 
-## 4. Run
+## 4. 运行
 
-Run the command.
+运行命令。
 
 ```sh
 bun run dev
 ```
 
-Then, access `http://localhost:3000` in your browser.
+然后，在浏览器中访问 `http://localhost:3000`。
 
-## Change port number
+## 更改端口号
 
-You can specify the port number with exporting the `port`.
+您可以通过导出 `port` 来指定端口号。
 
 <!-- prettier-ignore -->
 ```ts
@@ -74,9 +73,9 @@ export default { // [!code ++]
 } // [!code ++]
 ```
 
-## Serve static files
+## 提供静态文件
 
-To serve static files, use `serveStatic` imported from `hono/bun`.
+要提供静态文件，请使用从 `hono/bun` 导入的 `serveStatic`。
 
 ```ts
 import { serveStatic } from 'hono/bun'
@@ -89,7 +88,7 @@ app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('*', serveStatic({ path: './static/fallback.txt' }))
 ```
 
-For the above code, it will work well with the following directory structure.
+对于上述代码，它将在以下目录结构中正常工作。
 
 ```
 ./
@@ -106,7 +105,7 @@ For the above code, it will work well with the following directory structure.
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+如果您想将 `http://localhost:3000/static/*` 映射到 `./statics`，可以使用 `rewriteRequestPath` 选项：
 
 ```ts
 app.get(
@@ -121,7 +120,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+您可以使用 `mimes` 添加 MIME 类型：
 
 ```ts
 app.get(
@@ -137,7 +136,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `onNotFound`:
+您可以使用 `onNotFound` 指定在请求的文件未找到时的处理方式：
 
 ```ts
 app.get(
@@ -150,9 +149,9 @@ app.get(
 )
 ```
 
-## Testing
+## 测试
 
-You can use `bun:test` for testing on Bun.
+您可以使用 `bun:test` 在 Bun 中进行测试。
 
 ```ts
 import { describe, expect, it } from 'bun:test'
@@ -167,7 +166,7 @@ describe('My first test', () => {
 })
 ```
 
-Then, run the command.
+然后，运行命令。
 
 ```sh
 bun test index.test.ts

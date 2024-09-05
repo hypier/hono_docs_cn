@@ -1,15 +1,15 @@
-# JSX Renderer Middleware
+# JSX 渲染中间件
 
-JSX Renderer Middleware allows you to set up the layout when rendering JSX with the `c.render()` function, without the need for using `c.setRenderer()`. Additionally, it enables access to instances of Context within components through the use of `useRequestContext()`.
+JSX 渲染中间件允许您在使用 `c.render()` 函数渲染 JSX 时设置布局，而无需使用 `c.setRenderer()`。此外，它还通过使用 `useRequestContext()` 使组件内能够访问 Context 的实例。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { jsxRenderer, useRequestContext } from 'hono/jsx-renderer'
 ```
 
-## Usage
+## 用法
 
 ```jsx
 const app = new Hono()
@@ -20,7 +20,7 @@ app.get(
     return (
       <html>
         <body>
-          <header>Menu</header>
+          <header>菜单</header>
           <div>{children}</div>
         </body>
       </html>
@@ -29,15 +29,15 @@ app.get(
 )
 
 app.get('/page/about', (c) => {
-  return c.render(<h1>About me!</h1>)
+  return c.render(<h1>关于我！</h1>)
 })
 ```
 
-## Options
+## 选项
 
-### <Badge type="info" text="optional" /> docType: `boolean` | `string`
+### <Badge type="info" text="可选" /> docType: `boolean` | `string`
 
-If you do not want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `false`.
+如果您不想在 HTML 开头添加 DOCTYPE，请将 `docType` 选项设置为 `false`。
 
 ```tsx
 app.use(
@@ -55,7 +55,7 @@ app.use(
 )
 ```
 
-And you can specify the DOCTYPE.
+您也可以指定 DOCTYPE。
 
 ```tsx
 app.use(
@@ -76,9 +76,9 @@ app.use(
 )
 ```
 
-### <Badge type="info" text="optional" /> stream: `boolean` | `Record<string, string>`
+### <Badge type="info" text="可选" /> stream: `boolean` | `Record<string, string>`
 
-If you set it to `true` or provide a Record value, it will be rendered as a streaming response.
+如果将其设置为 `true` 或提供一个 Record 值，它将作为流式响应进行渲染。
 
 ```tsx
 const AsyncComponent = async () => {
@@ -112,7 +112,7 @@ app.get('/', (c) => {
 })
 ```
 
-If `true` is set, the following headers are added:
+如果设置为 `true`，将添加以下头部：
 
 ```ts
 {
@@ -121,11 +121,11 @@ If `true` is set, the following headers are added:
 }
 ```
 
-You can customize the header values by specifying the Record values.
+您可以通过指定 Record 值来定制头部值。
 
-## Nested Layouts
+## 嵌套布局
 
-The `Layout` component enables nesting the layouts.
+`Layout` 组件支持布局的嵌套。
 
 ```tsx
 app.use(
@@ -155,7 +155,7 @@ app.route('/blog', blog)
 
 ## `useRequestContext()`
 
-`useRequestContext()` returns an instance of Context.
+`useRequestContext()` 返回一个 Context 实例。
 
 ```tsx
 const RequestUrlBadge: FC = () => {
@@ -166,14 +166,14 @@ const RequestUrlBadge: FC = () => {
 app.get('/page/info', (c) => {
   return c.render(
     <div>
-      You are accessing: <RequestUrlBadge />
+      您正在访问：<RequestUrlBadge />
     </div>
   )
 })
 ```
 
 ::: warning
-You can't use `useRequestContext()` with the Deno's `precompile` JSX option. Use the `react-jsx`:
+您不能在 Deno 的 `precompile` JSX 选项下使用 `useRequestContext()`。请使用 `react-jsx`：
 
 ```json
    "compilerOptions": {
@@ -186,9 +186,9 @@ You can't use `useRequestContext()` with the Deno's `precompile` JSX option. Use
 
 :::
 
-## Extending `ContextRenderer`
+## 扩展 `ContextRenderer`
 
-By defining `ContextRenderer` as shown below, you can pass additional content to the renderer. This is handy, for instance, when you want to change the contents of the head tag depending on the page.
+通过如下定义 `ContextRenderer`，您可以向渲染器传递额外的内容。这在您想根据页面更改头标签的内容时非常方便。
 
 ```tsx
 declare module 'hono' {

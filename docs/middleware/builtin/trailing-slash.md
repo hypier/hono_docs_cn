@@ -1,10 +1,10 @@
-# Trailing Slash Middleware
+# 尾部斜杠中间件
 
-This middleware handles Trailing Slash in the URL on a GET request.
+该中间件处理 GET 请求中 URL 的尾部斜杠。
 
-`appendTrailingSlash` redirects the URL to which it added the Trailing Slash if the content was not found. Also, `trimTrailingSlash` will remove the Trailing Slash.
+`appendTrailingSlash` 会在内容未找到时将 URL 重定向到添加了尾部斜杠的地址。同时，`trimTrailingSlash` 将移除尾部斜杠。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
@@ -14,9 +14,9 @@ import {
 } from 'hono/trailing-slash'
 ```
 
-## Usage
+## 用法
 
-Example of redirecting a GET request of `/about/me` to `/about/me/`.
+将GET请求`/about/me`重定向到`/about/me/`的示例。
 
 ```ts
 import { Hono } from 'hono'
@@ -28,7 +28,7 @@ app.use(appendTrailingSlash())
 app.get('/about/me/', (c) => c.text('With Trailing Slash'))
 ```
 
-Example of redirecting a GET request of `/about/me/` to `/about/me`.
+将GET请求`/about/me/`重定向到`/about/me`的示例。
 
 ```ts
 import { Hono } from 'hono'
@@ -40,6 +40,6 @@ app.use(trimTrailingSlash())
 app.get('/about/me', (c) => c.text('Without Trailing Slash'))
 ```
 
-## Note
+## 注意
 
-It will be enabled when the request method is `GET` and the response status is `404`.
+当请求方法为 `GET` 且响应状态为 `404` 时，将启用此功能。

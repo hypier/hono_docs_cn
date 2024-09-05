@@ -1,14 +1,13 @@
 ---
-title: Hono - Ultrafast web framework for the Edges
+title: Hono - 边缘的超快速网页框架
 titleTemplate: ':title'
 ---
 
 # Hono
 
-Hono - _**means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework built on Web Standards.
-It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js.
+Hono - _**在日语中意为火焰🔥**_ - 是一个基于Web标准的小型、简单且超快速的Web框架。它可以在任何JavaScript运行时上运行：Cloudflare Workers、Fastly Compute、Deno、Bun、Vercel、Netlify、AWS Lambda、Lambda@Edge和Node.js。
 
-Fast, but not only fast.
+快速，但不仅仅是快速。
 
 ```ts
 import { Hono } from 'hono'
@@ -19,9 +18,9 @@ app.get('/', (c) => c.text('Hono!'))
 export default app
 ```
 
-## Quick Start
+## 快速开始
 
-Just run this:
+只需运行以下命令：
 
 ::: code-group
 
@@ -47,53 +46,53 @@ deno run -A npm:create-hono@latest
 
 :::
 
-## Features
+## 特性
 
-- **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
-- **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standards.
-- **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, AWS Lambda, or Node.js. The same code runs on all platforms.
-- **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
-- **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+- **超快** 🚀 - 路由器 `RegExpRouter` 非常快速。没有使用线性循环。快速。
+- **轻量级** 🪶 - `hono/tiny` 预设小于 14kB。Hono 没有任何依赖，仅使用 Web 标准。
+- **多运行时** 🌍 - 可在 Cloudflare Workers、Fastly Compute、Deno、Bun、AWS Lambda 或 Node.js 上运行。相同的代码可以在所有平台上运行。
+- **内置功能** 🔋 - Hono 具有内置中间件、自定义中间件、第三方中间件和助手。内置功能。
+- **愉悦的开发体验** 😃 - 超干净的 API。一级 TypeScript 支持。现在，我们有了“类型”。
 
-## Use-cases
+## 用例
 
-Hono is a simple web application framework similar to Express, without a frontend.
-But it runs on CDN Edges and allows you to construct larger applications when combined with middleware.
-Here are some examples of use-cases.
+Hono 是一个简单的 web 应用框架，类似于 Express，但没有前端。
+它运行在 CDN 边缘，并允许您在与中间件结合时构建更大的应用程序。
+以下是一些用例示例。
 
-- Building Web APIs
-- Proxy of backend servers
-- Front of CDN
-- Edge application
-- Base server for a library
-- Full-stack application
+- 构建 Web API
+- 后端服务器的代理
+- CDN 前端
+- 边缘应用
+- 库的基础服务器
+- 全栈应用
 
-## Who is using Hono?
+## 谁在使用 Hono？
 
-| Project                                                            | Platform           | What for?                                                                               |
+| 项目                                                                | 平台               | 用途                                                                                     |
 | ------------------------------------------------------------------ | ------------------ | --------------------------------------------------------------------------------------- |
-| [cdnjs](https://cdnjs.com)                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                  |
-| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/) | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal api server_.                   |
-| [Unkey](https://unkey.dev)                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_. |
-| [OpenStatus](https://openstatus.dev)                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.    |
-| [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.               |
+| [cdnjs](https://cdnjs.com)                                         | Cloudflare Workers | 一个免费的开源 CDN 服务。_Hono 用于 API 服务器。                                        |
+| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/) | Cloudflare Workers | 无服务器 SQL 数据库。_Hono 用于内部 API 服务器。                                       |
+| [Unkey](https://unkey.dev)                                         | Cloudflare Workers | 一个开源的 API 身份验证和授权。_Hono 用于 API 服务器。                                 |
+| [OpenStatus](https://openstatus.dev)                               | Bun                | 一个开源的网站和 API 监控平台。_Hono 用于 API 服务器。                                 |
+| [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | 一个基于 V8 的安全 TypeScript 运行时。_Hono 用于基准测试。                             |
 
-And the following.
+还有以下内容。
 
 - [Drivly](https://driv.ly/) - Cloudflare Workers
 - [repeat.dev](https://repeat.dev/) - Cloudflare Workers
 
-Do you want to see more? See [Who is using Hono in production?](https://github.com/orgs/honojs/discussions/1510).
+想要查看更多内容吗？请查看 [谁在生产中使用 Hono？](https://github.com/orgs/honojs/discussions/1510)。
 
-## Hono in 1 minute
+## Hono 一分钟入门
 
-A demonstration to create an application for Cloudflare Workers with Hono.
+一个演示，展示如何使用 Hono 创建 Cloudflare Workers 应用程序。
 
 ![Demo](/images/sc.gif)
 
-## Ultrafast
+## 超快速
 
-**Hono is the fastest**, compared to other routers for Cloudflare Workers.
+**Hono 是最快的**，与其他 Cloudflare Workers 路由器相比。
 
 ```
 Hono x 402,820 ops/sec ±4.78% (80 runs sampled)
@@ -104,11 +103,11 @@ Fastest is Hono
 ✨  Done in 28.06s.
 ```
 
-See [more benchmarks](/docs/concepts/benchmarks).
+查看 [更多基准测试](/docs/concepts/benchmarks)。
 
-## Lightweight
+## 轻量级
 
-**Hono is so small**. With the `hono/tiny` preset, its size is **under 14KB** when minified. There are many middleware and adapters, but they are bundled only when used. For context, the size of Express is 572KB.
+**Hono 非常小**。使用 `hono/tiny` 预设时，其大小在压缩后**小于 14KB**。有许多中间件和适配器，但只有在使用时才会打包。作为对比，Express 的大小为 572KB。
 
 ```
 $ npx wrangler dev --minify ./src/index.ts
@@ -120,19 +119,19 @@ $ npx wrangler dev --minify ./src/index.ts
 Total Upload: 11.47 KiB / gzip: 4.34 KiB
 ```
 
-## Multiple routers
+## 多个路由器
 
-**Hono has multiple routers**.
+**Hono 有多个路由器**。
 
-**RegExpRouter** is the fastest router in the JavaScript world. It matches the route using a single large Regex created before dispatch. With **SmartRouter**, it supports all route patterns.
+**RegExpRouter** 是 JavaScript 世界中最快的路由器。它使用在分发之前创建的单个大型正则表达式来匹配路由。使用 **SmartRouter**，它支持所有路由模式。
 
-**LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every time. **PatternRouter** simply adds and matches the pattern, making it small.
+**LinearRouter** 非常快速地注册路由，因此适合每次初始化应用程序的环境。**PatternRouter** 简单地添加并匹配模式，使其体积小巧。
 
-See [more information about routes](/docs/concepts/routers).
+查看 [有关路由的更多信息](/docs/concepts/routers)。
 
-## Web Standards
+## 网络标准
 
-Thanks to the use of the **Web Standards**, Hono works on a lot of platforms.
+感谢使用**网络标准**，Hono 可以在许多平台上运行。
 
 - Cloudflare Workers
 - Cloudflare Pages
@@ -142,40 +141,40 @@ Thanks to the use of the **Web Standards**, Hono works on a lot of platforms.
 - Vercel
 - AWS Lambda
 - Lambda@Edge
-- Others
+- 其他
 
-And by using [a Node.js adapter](https://github.com/honojs/node-server), Hono works on Node.js.
+通过使用 [Node.js 适配器](https://github.com/honojs/node-server)，Hono 可以在 Node.js 上运行。
 
-See [more information about Web Standards](/docs/concepts/web-standard).
+请查看 [有关网络标准的更多信息](/docs/concepts/web-standard)。
 
-## Middleware & Helpers
+## 中间件与助手
 
-**Hono has many middleware and helpers**. These makes "Write Less, do more" a reality.
+**Hono 有许多中间件和助手**。这些使得“少写代码，多做事”成为现实。
 
-Out of the box, Hono provides middleware and helpers for:
+开箱即用，Hono 提供以下中间件和助手：
 
-- [Basic Authentication](/docs/middleware/builtin/basic-auth)
-- [Bearer Authentication](/docs/middleware/builtin/bearer-auth)
-- [Body Limit](/docs/middleware/builtin/body-limit)
-- [Cache](/docs/middleware/builtin/cache)
-- [Compress](/docs/middleware/builtin/compress)
+- [基本认证](/docs/middleware/builtin/basic-auth)
+- [承载认证](/docs/middleware/builtin/bearer-auth)
+- [请求体限制](/docs/middleware/builtin/body-limit)
+- [缓存](/docs/middleware/builtin/cache)
+- [压缩](/docs/middleware/builtin/compress)
 - [Cookie](/docs/helpers/cookie)
 - [CORS](/docs/middleware/builtin/cors)
 - [ETag](/docs/middleware/builtin/etag)
 - [html](/docs/helpers/html)
 - [JSX](/docs/guides/jsx)
-- [JWT Authentication](/docs/middleware/builtin/jwt)
-- [Logger](/docs/middleware/builtin/logger)
-- [Pretty JSON](/docs/middleware/builtin/pretty-json)
-- [Secure Headers](/docs/middleware/builtin/secure-headers)
-- [SSG](/docs/helpers/ssg)
-- [Streaming](/docs/helpers/streaming)
-- [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
-- [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
+- [JWT 认证](/docs/middleware/builtin/jwt)
+- [日志记录](/docs/middleware/builtin/logger)
+- [美化 JSON](/docs/middleware/builtin/pretty-json)
+- [安全头部](/docs/middleware/builtin/secure-headers)
+- [静态生成](/docs/helpers/ssg)
+- [流式处理](/docs/helpers/streaming)
+- [GraphQL 服务器](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
+- [Firebase 认证](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
-- Others!
+- 其他！
 
-For example, adding ETag and request logging only takes a few lines of code with Hono:
+例如，使用 Hono 添加 ETag 和请求日志记录只需几行代码：
 
 ```ts
 import { Hono } from 'hono'
@@ -186,20 +185,20 @@ const app = new Hono()
 app.use(etag(), logger())
 ```
 
-See [more information about Middleware](/docs/concepts/middleware).
+查看 [有关中间件的更多信息](/docs/concepts/middleware)。
 
-## Developer Experience
+## 开发者体验
 
-Hono provides a delightful "**Developer Experience**".
+Hono 提供了令人愉悦的 "**开发者体验**"。
 
-Easy access to Request/Response thanks to the `Context` object.
-Moreover, Hono is written in TypeScript. Hono has "**Types**".
+得益于 `Context` 对象，轻松访问请求/响应。
+此外，Hono 是用 TypeScript 编写的。Hono 有 "**类型**"。
 
-For example, the path parameters will be literal types.
+例如，路径参数将是字面量类型。
 
 ![SS](/images/ss.png)
 
-And, the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
-you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
+而且，Validator 和 Hono Client `hc` 使 RPC 模式成为可能。在 RPC 模式下，
+您可以使用您喜欢的验证器，如 Zod，并轻松地与客户端共享服务器端 API 规范，从而构建类型安全的应用程序。
 
-See [Hono Stacks](/docs/concepts/stacks).
+请参阅 [Hono Stacks](/docs/concepts/stacks)。

@@ -1,21 +1,21 @@
-# Compress Middleware
+# Compression Middleware
 
-This middleware compresses the response body, according to `Accept-Encoding` request header.
+该中间件根据 `Accept-Encoding` 请求头压缩响应体。
 
 ::: info
-**Note**: On Cloudflare Workers and Deno Deploy, the response body will be compressed automatically, so there is no need to use this middleware.
+**注意**：在 Cloudflare Workers 和 Deno Deploy 上，响应体会自动压缩，因此不需要使用此中间件。
 
-**Bun**: This middleware uses `CompressionStream` which is not yet supported in bun.
+**Bun**：该中间件使用 `CompressionStream`，但在 bun 中尚不支持。
 :::
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { compress } from 'hono/compress'
 ```
 
-## Usage
+## 用法
 
 ```ts
 const app = new Hono()
@@ -25,6 +25,6 @@ app.use(compress())
 
 ## Options
 
-### <Badge type="info" text="optional" /> encoding: `'gzip'` | `'deflate'`
+### <Badge type="info" text="可选" /> 编码: `'gzip'` | `'deflate'`
 
-The compression scheme to allow for response compression. Either `gzip` or `deflate`. If not defined, both are allowed and will be used based on the `Accept-Encoding` header. `gzip` is prioritized if this option is not provided and the client provides both in the `Accept-Encoding` header.
+允许响应压缩的压缩方案。可以是 `gzip` 或 `deflate`。如果未定义，则允许两者，并将根据 `Accept-Encoding` 头部使用。 如果未提供此选项，且客户端在 `Accept-Encoding` 头部提供了两者，则优先使用 `gzip`。

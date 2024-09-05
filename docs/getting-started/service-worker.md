@@ -1,19 +1,19 @@
 # Service Worker
 
-[Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) is a script that runs in the background of the browser to handle tasks like caching and push notifications. Using a Service Worker adapter, you can run applications made with Hono as [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) handler within the browser.
+[Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 是一个在浏览器后台运行的脚本，用于处理缓存和推送通知等任务。使用 Service Worker 适配器，您可以在浏览器中将使用 Hono 制作的应用程序作为 [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) 处理程序运行。
 
-This page shows an example of creating a project using [Vite](https://vitejs.dev/).
+此页面展示了使用 [Vite](https://vitejs.dev/) 创建项目的示例。
 
-## 1. Setup
+## 1. 设置
 
-First, create and move to your project directory:
+首先，创建并切换到你的项目目录：
 
 ```sh
 mkdir my-app
 cd my-app
 ```
 
-Create the necessary files for the project. Make a `package.json` file with the following:
+为项目创建必要的文件。创建一个 `package.json` 文件，内容如下：
 
 ```json
 {
@@ -26,7 +26,7 @@ Create the necessary files for the project. Make a `package.json` file with the 
 }
 ```
 
-Similarly, create a `tsconfig.json` file with the following:
+同样，创建一个 `tsconfig.json` 文件，内容如下：
 
 ```json
 {
@@ -41,7 +41,7 @@ Similarly, create a `tsconfig.json` file with the following:
 }
 ```
 
-Next, install the necessary modules.
+接下来，安装必要的模块。
 
 ::: code-group
 
@@ -69,19 +69,19 @@ bun add -D vite
 
 ## 2. Hello World
 
-Edit `index.html`:
+编辑 `index.html`：
 
 ```html
 <!doctype html>
 <html>
   <body>
-    <a href="/sw">Hello World by Service Worker</a>
+    <a href="/sw">通过 Service Worker 的 Hello World</a>
     <script type="module" src="/main.ts"></script>
   </body>
 </html>
 ```
 
-`main.ts` is a script to register the Service Worker:
+`main.ts` 是一个用于注册 Service Worker 的脚本：
 
 ```ts
 function register() {
@@ -89,10 +89,10 @@ function register() {
     .register('/sw.ts', { scope: '/sw', type: 'module' })
     .then(
       function (_registration) {
-        console.log('Register Service Worker: Success')
+        console.log('注册 Service Worker：成功')
       },
       function (_error) {
-        console.log('Register Service Worker: Error')
+        console.log('注册 Service Worker：错误')
       }
     )
 }
@@ -101,7 +101,7 @@ function start() {
     .getRegistrations()
     .then(function (registrations) {
       for (const registration of registrations) {
-        console.log('Unregister Service Worker')
+        console.log('注销 Service Worker')
         registration.unregister()
       }
       register()
@@ -110,7 +110,7 @@ function start() {
 start()
 ```
 
-In `sw.ts`, create an application using Hono and register it to the `fetch` event with the Service Worker adapter’s `handle` function. This allows the Hono application to intercept access to `/sw`.
+在 `sw.ts` 中，使用 Hono 创建一个应用，并通过 Service Worker 适配器的 `handle` 函数将其注册到 `fetch` 事件。这允许 Hono 应用拦截对 `/sw` 的访问。
 
 ```ts
 // To support types
@@ -126,9 +126,9 @@ app.get('/', (c) => c.text('Hello World'))
 self.addEventListener('fetch', handle(app))
 ```
 
-## 3. Run
+## 3. 运行
 
-Start the development server.
+启动开发服务器。
 
 ::: code-group
 
@@ -150,4 +150,4 @@ bun run dev
 
 :::
 
-By default, the development server will run on port `5173`. Access `http://localhost:5173/` in your browser to complete the Service Worker registration. Then, access `/sw` to see the response from the Hono application.
+默认情况下，开发服务器将在端口 `5173` 上运行。在浏览器中访问 `http://localhost:5173/` 以完成服务工作者的注册。然后，访问 `/sw` 以查看来自 Hono 应用程序的响应。

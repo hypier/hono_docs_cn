@@ -1,3 +1,3 @@
-# Examples
+# 示例
 
-See the [Examples section](/examples/).
+请参阅[示例部分](/examples/)。

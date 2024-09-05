@@ -1,20 +1,20 @@
-# Testing
+# 测试
 
-Testing is important.
-In actuality, it is easy to test Hono's applications.
-The way to create a test environment differs from each runtime, but the basic steps are the same.
-In this section, let's test with Cloudflare Workers and Jest.
+测试是重要的。
+实际上，测试 Hono 的应用程序很简单。
+创建测试环境的方法因每个运行时而异，但基本步骤是相同的。
+在本节中，让我们使用 Cloudflare Workers 和 Jest 进行测试。
 
-## Request and Response
+## 请求和响应
 
-All you do is create a Request and pass it to the Hono application to validate the Response.
-And, you can use `app.request` the useful method.
+您所要做的就是创建一个请求并将其传递给 Hono 应用程序以验证响应。
+并且，您可以使用 `app.request` 这个有用的方法。
 
 ::: tip
-For a typed test client see the [testing helper](/docs/helpers/testing).
+有关类型化测试客户端，请参见 [testing helper](/docs/helpers/testing)。
 :::
 
-For example, consider an application that provides the following REST API.
+例如，考虑一个提供以下 REST API 的应用程序。
 
 ```ts
 app.get('/posts', (c) => {
@@ -34,7 +34,7 @@ app.post('/posts', (c) => {
 })
 ```
 
-Make a request to `GET /posts` and test the response.
+向 `GET /posts` 发起请求并测试响应。
 
 ```ts
 describe('Example', () => {
@@ -46,7 +46,7 @@ describe('Example', () => {
 })
 ```
 
-To make a request to `POST /posts`, do the following.
+要向 `POST /posts` 发起请求，请执行以下操作。
 
 ```ts
 test('POST /posts', async () => {
@@ -61,7 +61,7 @@ test('POST /posts', async () => {
 })
 ```
 
-To make a request to `POST /posts` with `JSON` data, do the following.
+要向 `POST /posts` 发起带有 `JSON` 数据的请求，请执行以下操作。
 
 ```ts
 test('POST /posts', async () => {
@@ -78,7 +78,7 @@ test('POST /posts', async () => {
 })
 ```
 
-To make a request to `POST /posts` with `multipart/form-data` data, do the following.
+要向 `POST /posts` 发起带有 `multipart/form-data` 数据的请求，请执行以下操作。
 
 ```ts
 test('POST /posts', async () => {
@@ -96,7 +96,7 @@ test('POST /posts', async () => {
 })
 ```
 
-You can also pass an instance of the Request class.
+您还可以传递 Request 类的实例。
 
 ```ts
 test('POST /posts', async () => {
@@ -112,11 +112,11 @@ test('POST /posts', async () => {
 })
 ```
 
-In this way, you can test it as like an End-to-End.
+通过这种方式，您可以像进行端到端测试一样进行测试。
 
-## Env
+## 环境
 
-To set `c.env` for testing, you can pass it as the 3rd parameter to `app.request`. This is useful for mocking values like [Cloudflare Workers Bindings](https://hono.dev/getting-started/cloudflare-workers#bindings):
+要为测试设置 `c.env`，可以将其作为第三个参数传递给 `app.request`。这对于模拟像 [Cloudflare Workers Bindings](https://hono.dev/getting-started/cloudflare-workers#bindings) 这样的值非常有用：
 
 ```ts
 const MOCK_ENV = {

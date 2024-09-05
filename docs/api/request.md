@@ -1,10 +1,10 @@
 # HonoRequest
 
-The `HonoRequest` is an object that can be taken from `c.req` which wraps a [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+`HonoRequest` 是一个可以从 `c.req` 中获取的对象，它封装了一个 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 对象。
 
 ## param()
 
-Get the values of path parameters.
+获取路径参数的值。
 
 ```ts
 // Captured params
@@ -21,7 +21,7 @@ app.get('/entry/:id/comment/:commentId', (c) => {
 
 ## query()
 
-Get querystring parameters.
+获取查询字符串参数。
 
 ```ts
 // Query params
@@ -39,11 +39,11 @@ app.get('/search', (c) => {
 
 ## queries()
 
-Get multiple querystring parameter values, e.g. `/search?tags=A&tags=B`
+获取多个查询字符串参数值，例如 `/search?tags=A&tags=B`
 
 ```ts
 app.get('/search', (c) => {
-  // tags will be string[]
+  // tags 将是 string[]
   const tags = c.req.queries('tags')
   ...
 })
@@ -51,7 +51,7 @@ app.get('/search', (c) => {
 
 ## header()
 
-Get the request header value.
+获取请求头的值。
 
 ```ts
 app.get('/', (c) => {
@@ -62,7 +62,7 @@ app.get('/', (c) => {
 
 ## parseBody()
 
-Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`
+解析类型为 `multipart/form-data` 或 `application/x-www-form-urlencoded` 的请求体
 
 ```ts
 app.post('/entry', async (c) => {
@@ -71,47 +71,47 @@ app.post('/entry', async (c) => {
 })
 ```
 
-`parseBody()` supports the following behaviors.
+`parseBody()` 支持以下行为。
 
-**Single file**
+**单个文件**
 
 ```ts
 const body = await c.req.parseBody()
 body['foo']
 ```
 
-`body['foo']` is `(string | File)`.
+`body['foo']` 是 `(string | File)`。
 
-If multiple files are uploaded, the last one will be used.
+如果上传了多个文件，将使用最后一个文件。
 
-### Multiple files
+### 多个文件
 
 ```ts
 const body = await c.req.parseBody()
 body['foo[]']
 ```
 
-`body['foo[]']` is always `(string | File)[]`.
+`body['foo[]']` 始终是 `(string | File)[]`。
 
-`[]` postfix is required.
+`[]` 后缀是必需的。
 
-### Multiple files with same name
+### 同名多个文件
 
 ```ts
 const body = await c.req.parseBody({ all: true })
 body['foo']
 ```
 
-`all` option is disabled by default.
+`all` 选项默认是禁用的。
 
-- If `body['foo']` is multiple files, it will be parsed to `(string | File)[]`.
-- If `body['foo']` is single file, it will be parsed to `(string | File)`.
+- 如果 `body['foo']` 是多个文件，它将被解析为 `(string | File)[]`。
+- 如果 `body['foo']` 是单个文件，它将被解析为 `(string | File)`。
 
-### Dot notation
+### 点表示法
 
-If you set the `dot` option `true`, the return value is structured based on the dot notation.
+如果将 `dot` 选项设置为 `true`，返回值将基于点表示法进行结构化。
 
-Imagine receiving the following data:
+想象一下接收到以下数据：
 
 ```ts
 const data = new FormData()
@@ -119,7 +119,7 @@ data.append('obj.key1', 'value1')
 data.append('obj.key2', 'value2')
 ```
 
-You can get the structured value by setting the `dot` option `true`:
+通过将 `dot` 选项设置为 `true`，您可以获取结构化的值：
 
 ```ts
 const body = await c.req.parseBody({ dot: true })
@@ -128,7 +128,7 @@ const body = await c.req.parseBody({ dot: true })
 
 ## json()
 
-Parses the request body of type `application/json`
+解析类型为 `application/json` 的请求体
 
 ```ts
 app.post('/entry', async (c) => {
@@ -139,7 +139,7 @@ app.post('/entry', async (c) => {
 
 ## text()
 
-Parses the request body of type `text/plain`
+解析类型为 `text/plain` 的请求主体
 
 ```ts
 app.post('/entry', async (c) => {
@@ -150,7 +150,7 @@ app.post('/entry', async (c) => {
 
 ## arrayBuffer()
 
-Parses the request body as an `ArrayBuffer`
+将请求体解析为 `ArrayBuffer`
 
 ```ts
 app.post('/entry', async (c) => {
@@ -161,7 +161,7 @@ app.post('/entry', async (c) => {
 
 ## blob()
 
-Parses the request body as a `Blob`.
+将请求体解析为 `Blob`。
 
 ```ts
 app.post('/entry', async (c) => {
@@ -172,7 +172,7 @@ app.post('/entry', async (c) => {
 
 ## formData()
 
-Parses the request body as a `FormData`.
+将请求体解析为 `FormData`。
 
 ```ts
 app.post('/entry', async (c) => {
@@ -183,7 +183,7 @@ app.post('/entry', async (c) => {
 
 ## valid()
 
-Get the validated data.
+获取验证过的数据。
 
 ```ts
 app.post('/posts', (c) => {
@@ -192,7 +192,7 @@ app.post('/posts', (c) => {
 })
 ```
 
-Available targets are below.
+可用的目标如下。
 
 - `form`
 - `json`
@@ -201,11 +201,11 @@ Available targets are below.
 - `cookie`
 - `param`
 
-See the [Validation section](/docs/guides/validation) for usage examples.
+请参阅[验证部分](/docs/guides/validation)以获取使用示例。
 
 ## routePath()
 
-You can retrieve the registered path within the handler like this:
+您可以通过以下方式在处理程序中检索注册的路径：
 
 ```ts
 app.get('/posts/:id', (c) => {
@@ -213,7 +213,7 @@ app.get('/posts/:id', (c) => {
 })
 ```
 
-If you access `/posts/123`, it will return `/posts/:id`:
+如果您访问 `/posts/123`，它将返回 `/posts/:id`：
 
 ```json
 { "path": "/posts/:id" }
@@ -221,7 +221,7 @@ If you access `/posts/123`, it will return `/posts/:id`:
 
 ## matchedRoutes()
 
-It returns matched routes within the handler, which is useful for debugging.
+它返回处理程序内的匹配路由，这对于调试非常有用。
 
 ```ts
 app.use(async function logger(c, next) {
@@ -242,9 +242,9 @@ app.use(async function logger(c, next) {
 })
 ```
 
-## path
+## 路径
 
-The request pathname.
+请求的路径名。
 
 ```ts
 app.get('/about/me', (c) => {
@@ -255,7 +255,7 @@ app.get('/about/me', (c) => {
 
 ## url
 
-The request url strings.
+请求的 url 字符串。
 
 ```ts
 app.get('/about/me', (c) => {
@@ -264,9 +264,9 @@ app.get('/about/me', (c) => {
 })
 ```
 
-## method
+## 方法
 
-The method name of the request.
+请求的方法名称。
 
 ```ts
 app.get('/about/me', (c) => {
@@ -275,9 +275,9 @@ app.get('/about/me', (c) => {
 })
 ```
 
-## raw
+## 原始
 
-The raw [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+原始 [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) 对象。
 
 ```ts
 // For Cloudflare Workers

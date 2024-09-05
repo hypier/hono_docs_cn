@@ -1,40 +1,40 @@
-# Routing
+# 路由
 
-Routing of Hono is flexible and intuitive.
-Let's take a look.
+Hono 的路由灵活而直观。
+让我们来看看。
 
-## Basic
+## 基础
 
 ```ts
-// HTTP Methods
+// HTTP 方法
 app.get('/', (c) => c.text('GET /'))
 app.post('/', (c) => c.text('POST /'))
 app.put('/', (c) => c.text('PUT /'))
 app.delete('/', (c) => c.text('DELETE /'))
 
-// Wildcard
+// 通配符
 app.get('/wild/*/card', (c) => {
   return c.text('GET /wild/*/card')
 })
 
-// Any HTTP methods
-app.all('/hello', (c) => c.text('Any Method /hello'))
+// 任何 HTTP 方法
+app.all('/hello', (c) => c.text('任何方法 /hello'))
 
-// Custom HTTP method
-app.on('PURGE', '/cache', (c) => c.text('PURGE Method /cache'))
+// 自定义 HTTP 方法
+app.on('PURGE', '/cache', (c) => c.text('PURGE 方法 /cache'))
 
-// Multiple Method
+// 多个方法
 app.on(['PUT', 'DELETE'], '/post', (c) =>
-  c.text('PUT or DELETE /post')
+  c.text('PUT 或 DELETE /post')
 )
 
-// Multiple Paths
+// 多个路径
 app.on('GET', ['/hello', '/ja/hello', '/en/hello'], (c) =>
-  c.text('Hello')
+  c.text('你好')
 )
 ```
 
-## Path Parameter
+## 路径参数
 
 ```ts
 app.get('/user/:name', (c) => {
@@ -43,7 +43,7 @@ app.get('/user/:name', (c) => {
 })
 ```
 
-or all parameters at once:
+或者一次获取所有参数：
 
 ```ts
 app.get('/posts/:id/comment/:comment_id', (c) => {
@@ -52,14 +52,14 @@ app.get('/posts/:id/comment/:comment_id', (c) => {
 })
 ```
 
-## Optional Parameter
+## 可选参数
 
 ```ts
 // Will match `/api/animal` and `/api/animal/:type`
 app.get('/api/animal/:type?', (c) => c.text('Animal!'))
 ```
 
-## Regexp
+## 正则表达式
 
 ```ts
 app.get('/post/:date{[0-9]+}/:title{[a-z]+}', (c) => {
@@ -68,7 +68,7 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', (c) => {
 })
 ```
 
-## Including slashes
+## 包含斜杠
 
 ```ts
 app.get('/posts/:filename{.+\\.png$}', (c) => {
@@ -76,7 +76,7 @@ app.get('/posts/:filename{.+\\.png$}', (c) => {
 })
 ```
 
-## Chained route
+## 链式路由
 
 ```ts
 app
@@ -91,9 +91,9 @@ app
   })
 ```
 
-## Grouping
+## 分组
 
-You can group the routes with the Hono instance and add them to the main app with the route method.
+您可以使用 Hono 实例对路由进行分组，并通过 route 方法将它们添加到主应用程序中。
 
 ```ts
 const book = new Hono()
@@ -110,9 +110,9 @@ const app = new Hono()
 app.route('/book', book)
 ```
 
-## Grouping without changing base
+## 保持基础的分组
 
-You can also group multiple instances while keeping base.
+您也可以在保持基础的情况下分组多个实例。
 
 ```ts
 const book = new Hono()
@@ -128,18 +128,18 @@ app.route('/', book) // Handle /book
 app.route('/', user) // Handle /user
 ```
 
-## Base path
+## 基础路径
 
-You can specify the base path.
+您可以指定基础路径。
 
 ```ts
 const api = new Hono().basePath('/api')
 api.get('/book', (c) => c.text('List Books')) // GET /api/book
 ```
 
-## Routing with hostname
+## 使用主机名的路由
 
-It works fine if it includes a hostname.
+如果包含主机名，它工作得很好。
 
 ```ts
 const app = new Hono({
@@ -150,9 +150,9 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
 ```
 
-## Routing with `host` Header value
+## 使用 `host` 头部值进行路由
 
-Hono can handle the `host` header value if you set the `getPath()` function in the Hono constructor.
+Hono 可以处理 `host` 头部值，如果您在 Hono 构造函数中设置 `getPath()` 函数。
 
 ```ts
 const app = new Hono({
@@ -164,17 +164,17 @@ const app = new Hono({
 
 app.get('/www1.example.com/hello', () => c.text('hello www1'))
 
-// A following request will match the route:
+// 以下请求将匹配该路由：
 // new Request('http://www1.example.com/hello', {
 //  headers: { host: 'www1.example.com' },
 // })
 ```
 
-By applying this, for example, you can change the routing by `User-Agent` header.
+通过应用此方法，例如，您可以通过 `User-Agent` 头部更改路由。
 
-## Routing priority
+## 路由优先级
 
-Handlers or middleware will be executed in registration order.
+处理程序或中间件将按照注册顺序执行。
 
 ```ts
 app.get('/book/a', (c) => c.text('a')) // a
@@ -186,7 +186,7 @@ GET /book/a ---> `a`
 GET /book/b ---> `common`
 ```
 
-When a handler is executed, the process will be stopped.
+当一个处理程序被执行时，过程将会停止。
 
 ```ts
 app.get('*', (c) => c.text('common')) // common
@@ -194,17 +194,17 @@ app.get('/foo', (c) => c.text('foo')) // foo
 ```
 
 ```
-GET /foo ---> `common` // foo will not be dispatched
+GET /foo ---> `common` // foo 不会被分发
 ```
 
-If you have the middleware that you want to execute, write the code above the handler.
+如果您有希望执行的中间件，请将代码写在处理程序之前。
 
 ```ts
 app.use(logger())
 app.get('/foo', (c) => c.text('foo'))
 ```
 
-If you want to have a "_fallback_" handler, write the code below the other handler.
+如果您想要一个 "_fallback_" 处理程序，请将代码写在其他处理程序的下面。
 
 ```ts
 app.get('/bar', (c) => c.text('bar')) // bar
@@ -215,10 +215,10 @@ app.get('*', (c) => c.text('fallback')) // fallback
 GET /bar ---> `fallback`
 ```
 
-## Grouping ordering
+## 分组顺序
 
-Note that the mistake of grouping routings is hard to notice.
-The `route()` function takes the stored routing from the second argument (such as `three` or `two`) and adds it to its own (`two` or `app`) routing.
+请注意，分组路由的错误很难察觉。
+`route()` 函数从第二个参数（如 `three` 或 `two`）中获取存储的路由，并将其添加到自己的（`two` 或 `app`）路由中。
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
@@ -228,17 +228,17 @@ app.route('/two', two)
 export default app
 ```
 
-It will return 200 response.
+它将返回 200 响应。
 
 ```
 GET /two/three/hi ---> `hi`
 ```
 
-However, if they are in the wrong order, it will return a 404.
+然而，如果它们的顺序错误，将返回 404。
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
-app.route('/two', two) // `two` does not have routes
+app.route('/two', two) // `two` 没有路由
 two.route('/three', three)
 
 export default app

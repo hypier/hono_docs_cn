@@ -1,22 +1,22 @@
-# JWT Authentication Helper
+# JWT 身份验证助手
 
-This helper provides functions for encoding, decoding, signing, and verifying JSON Web Tokens (JWTs). JWTs are commonly used for authentication and authorization purposes in web applications. This helper offers robust JWT functionality with support for various cryptographic algorithms.
+该助手提供用于编码、解码、签名和验证 JSON Web Tokens (JWTs) 的函数。JWT 通常用于 Web 应用程序中的身份验证和授权。该助手提供强大的 JWT 功能，支持多种加密算法。
 
-## Import
+## 导入
 
-To use this helper, you can import it as follows:
+要使用此助手，您可以按如下方式导入：
 
 ```ts
 import { decode, sign, verify } from 'hono/jwt'
 ```
 
 ::: info
-[JWT Middleware](/docs/middleware/builtin/jwt) also import the `jwt` function from the `hono/jwt`.
+[JWT 中间件](/docs/middleware/builtin/jwt) 也从 `hono/jwt` 导入 `jwt` 函数。
 :::
 
 ## `sign()`
 
-This function generates a JWT token by encoding a payload and signing it using the specified algorithm and secret.
+此函数通过编码有效负载并使用指定的算法和密钥对其进行签名，从而生成一个JWT令牌。
 
 ```ts
 sign(
@@ -27,7 +27,7 @@ sign(
 ): Promise<string>;
 ```
 
-### Example
+### 示例
 
 ```ts
 import { sign } from 'hono/jwt'
@@ -41,25 +41,25 @@ const secret = 'mySecretKey'
 const token = await sign(payload, secret)
 ```
 
-### Options
+### 选项
 
 <br/>
 
-#### <Badge type="danger" text="required" /> payload: `unknown`
+#### <Badge type="danger" text="必填" /> payload: `unknown`
 
-The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
+要签名的JWT有效载荷。您可以包含其他声明，如在[有效载荷验证](#payload-validation)中所示。
 
-#### <Badge type="danger" text="required" /> secret: `string`
+#### <Badge type="danger" text="必填" /> secret: `string`
 
-The secret key used for JWT verification or signing.
+用于JWT验证或签名的密钥。
 
-#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+#### <Badge type="info" text="可选" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
 
-The algorithm used for JWT signing or verification. The default is HS256.
+用于JWT签名或验证的算法。默认值为HS256。
 
 ## `verify()`
 
-This function checks if a JWT token is genuine and still valid. It ensures the token hasn't been altered and checks validity only if you added [Payload Validation](#payload-validation).
+此函数检查 JWT 令牌是否真实且仍然有效。它确保令牌没有被更改，并仅在您添加了 [Payload Validation](#payload-validation) 时检查有效性。
 
 ```ts
 verify(
@@ -70,7 +70,7 @@ verify(
 
 ```
 
-### Example
+### 示例
 
 ```ts
 import { verify } from 'hono/jwt'
@@ -82,90 +82,90 @@ const decodedPayload = await verify(tokenToVerify, secretKey)
 console.log(decodedPayload)
 ```
 
-### Options
+### 选项
 
 <br/>
 
-#### <Badge type="danger" text="required" /> token: `string`
+#### <Badge type="danger" text="必需" /> token: `string`
 
-The JWT token to be verified.
+需要验证的 JWT 令牌。
 
-#### <Badge type="danger" text="required" /> secret: `string`
+#### <Badge type="danger" text="必需" /> secret: `string`
 
-The secret key used for JWT verification or signing.
+用于 JWT 验证或签名的密钥。
 
-#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+#### <Badge type="info" text="可选" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
 
-The algorithm used for JWT signing or verification. The default is HS256.
+用于 JWT 签名或验证的算法。默认值为 HS256。
 
 ## `decode()`
 
-This function decodes a JWT token without performing signature verification. It extracts and returns the header and payload from the token.
+此函数解码一个JWT令牌，而不执行签名验证。它从令牌中提取并返回头部和有效负载。
 
 ```ts
 decode(token: string): { header: any; payload: any };
 ```
 
-### Example
+### 示例
 
 ```ts
 import { decode } from 'hono/jwt'
 
-// Decode the JWT token
+// 解码 JWT 令牌
 const tokenToDecode =
   'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAidXNlcjEyMyIsICJyb2xlIjogImFkbWluIn0.JxUwx6Ua1B0D1B0FtCrj72ok5cm1Pkmr_hL82sd7ELA'
 
 const { header, payload } = decode(tokenToDecode)
 
-console.log('Decoded Header:', header)
-console.log('Decoded Payload:', payload)
+console.log('解码后的头部:', header)
+console.log('解码后的负载:', payload)
 ```
 
-### Options
+### 选项
 
 <br/>
 
-#### <Badge type="danger" text="required" /> token: `string`
+#### <Badge type="danger" text="必需" /> token: `string`
 
-The JWT token to be decoded.
+要解码的JWT令牌。
 
-> The `decode` function allows you to inspect the header and payload of a JWT token _**without**_ performing verification. This can be useful for debugging or extracting information from JWT tokens.
+> `decode`函数允许您检查JWT令牌的头部和负载 _**而不**_ 执行验证。这对于调试或从JWT令牌中提取信息非常有用。
 
-## Payload Validation
+## 有效负载验证
 
-When verifying a JWT token, the following payload validations are performed:
+在验证JWT令牌时，将执行以下有效负载验证：
 
-- `exp`: The token is checked to ensure it has not expired.
-- `nbf`: The token is checked to ensure it is not being used before a specified time.
-- `iat`: The token is checked to ensure it is not issued in the future.
+- `exp`：检查令牌以确保它尚未过期。
+- `nbf`：检查令牌以确保它在指定时间之前未被使用。
+- `iat`：检查令牌以确保它未在未来发行。
 
-Please ensure that your JWT payload includes these fields, as an object, if you intend to perform these checks during verification.
+如果您打算在验证期间执行这些检查，请确保您的JWT有效负载包含这些字段，作为一个对象。
 
-## Custom Error Types
+## 自定义错误类型
 
-The module also defines custom error types to handle JWT-related errors.
+该模块还定义了自定义错误类型以处理与 JWT 相关的错误。
 
-- `JwtAlgorithmNotImplemented`: Indicates that the requested JWT algorithm is not implemented.
-- `JwtTokenInvalid`: Indicates that the JWT token is invalid.
-- `JwtTokenNotBefore`: Indicates that the token is being used before its valid date.
-- `JwtTokenExpired`: Indicates that the token has expired.
-- `JwtTokenIssuedAt`: Indicates that the "iat" claim in the token is incorrect.
-- `JwtTokenSignatureMismatched`: Indicates a signature mismatch in the token.
+- `JwtAlgorithmNotImplemented`: 表示请求的 JWT 算法未实现。
+- `JwtTokenInvalid`: 表示 JWT 令牌无效。
+- `JwtTokenNotBefore`: 表示令牌在其有效日期之前被使用。
+- `JwtTokenExpired`: 表示令牌已过期。
+- `JwtTokenIssuedAt`: 表示令牌中的 "iat" 声明不正确。
+- `JwtTokenSignatureMismatched`: 表示令牌中的签名不匹配。
 
-## Supported AlgorithmTypes
+## 支持的算法类型
 
-The module supports the following JWT cryptographic algorithms:
+该模块支持以下 JWT 加密算法：
 
-- `HS256`: HMAC using SHA-256
-- `HS384`: HMAC using SHA-384
-- `HS512`: HMAC using SHA-512
-- `RS256`: RSASSA-PKCS1-v1_5 using SHA-256
-- `RS384`: RSASSA-PKCS1-v1_5 using SHA-384
-- `RS512`: RSASSA-PKCS1-v1_5 using SHA-512
-- `PS256`: RSASSA-PSS using SHA-256 and MGF1 with SHA-256
-- `PS384`: RSASSA-PSS using SHA-386 and MGF1 with SHA-386
-- `PS512`: RSASSA-PSS using SHA-512 and MGF1 with SHA-512
-- `ES256`: ECDSA using P-256 and SHA-256
-- `ES384`: ECDSA using P-384 and SHA-384
-- `ES512`: ECDSA using P-521 and SHA-512
-- `EdDSA`: EdDSA using Ed25519
+- `HS256`: HMAC 使用 SHA-256
+- `HS384`: HMAC 使用 SHA-384
+- `HS512`: HMAC 使用 SHA-512
+- `RS256`: RSASSA-PKCS1-v1_5 使用 SHA-256
+- `RS384`: RSASSA-PKCS1-v1_5 使用 SHA-384
+- `RS512`: RSASSA-PKCS1-v1_5 使用 SHA-512
+- `PS256`: RSASSA-PSS 使用 SHA-256 和 MGF1 结合 SHA-256
+- `PS384`: RSASSA-PSS 使用 SHA-384 和 MGF1 结合 SHA-384
+- `PS512`: RSASSA-PSS 使用 SHA-512 和 MGF1 结合 SHA-512
+- `ES256`: ECDSA 使用 P-256 和 SHA-256
+- `ES384`: ECDSA 使用 P-384 和 SHA-384
+- `ES512`: ECDSA 使用 P-521 和 SHA-512
+- `EdDSA`: EdDSA 使用 Ed25519

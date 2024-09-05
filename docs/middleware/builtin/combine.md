@@ -1,21 +1,29 @@
-# Combine Middleware
+# 合并中间件
 
-Combine Middleware combines multiple middleware functions into a single middleware. It provides three functions:
+合并中间件将多个中间件函数组合成一个单一的中间件。它提供三个函数：
 
-- `some` - Runs only one of the given middleware.
-- `every` - Runs all given middleware.
-- `except` - Runs all given middleware only if a condition is not met.
+- `some` - 仅运行给定中间件中的一个。
+- `every` - 运行所有给定中间件。
+- `except` - 仅在不满足条件的情况下运行所有给定中间件。
 
-## Import
+```
+function mergeMiddleware(...middlewares) {
+  return (req, res, next) => {
+    // Middleware logic here
+  };
+}
+```
+
+## 导入
 
 ```ts
 import { Hono } from 'hono'
 import { some, every, except } from 'hono/combine'
 ```
 
-## Usage
+## 使用方法
 
-Here's an example of complex access control rules using Combine Middleware.
+这是一个使用 Combine Middleware 的复杂访问控制规则示例。
 
 ```ts
 import { Hono } from 'hono'
@@ -34,7 +42,7 @@ app.use(
       ipRestriction(getConnInfo, { allowList: ['192.168.0.2'] }),
       bearerAuth({ token })
     ),
-    // If both conditions are met, rateLimit will not execute.
+    // 如果两个条件都满足，rateLimit 将不会执行。
     rateLimit()
   )
 )
@@ -44,7 +52,7 @@ app.get('/', (c) => c.text('Hello Hono!'))
 
 ### some
 
-Runs the first middleware that returns true. Middleware is applied in order, and if any middleware exits successfully, subsequent middleware will not run.
+运行第一个返回 true 的中间件。中间件按顺序应用，如果任何中间件成功退出，则后续中间件将不会运行。
 
 ```ts
 import { some } from 'combine'
@@ -61,7 +69,7 @@ app.use(
 
 ### every
 
-Runs all middleware and stops if any of them fail. Middleware is applied in order, and if any middleware throws an error, subsequent middleware will not run.
+运行所有中间件，如果其中任何一个失败则停止。中间件按顺序应用，如果任何中间件抛出错误，则后续中间件将不会运行。
 
 ```ts
 import { some, every } from 'hono/combine'
@@ -82,7 +90,7 @@ app.use(
 
 ### except
 
-Runs all middleware except when the condition is met. You can pass a string or function as the condition. If multiple targets need to be matched, pass them as an array.
+运行所有中间件，除非满足条件。您可以将字符串或函数作为条件传递。如果需要匹配多个目标，请将它们作为数组传递。
 
 ```ts
 import { except } from 'hono/combine'

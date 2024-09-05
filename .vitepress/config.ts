@@ -5,26 +5,26 @@ import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-i
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
-    text: 'Concepts',
+    text: '概念',
     collapsed: true,
     items: [
-      { text: 'Motivation', link: '/docs/concepts/motivation' },
-      { text: 'Routers', link: '/docs/concepts/routers' },
-      { text: 'Benchmarks', link: '/docs/concepts/benchmarks' },
-      { text: 'Web Standard', link: '/docs/concepts/web-standard' },
-      { text: 'Middleware', link: '/docs/concepts/middleware' },
+      { text: '动机', link: '/docs/concepts/motivation' },
+      { text: '路由', link: '/docs/concepts/routers' },
+      { text: '基准测试', link: '/docs/concepts/benchmarks' },
+      { text: 'Web 标准', link: '/docs/concepts/web-standard' },
+      { text: '中间件', link: '/docs/concepts/middleware' },
       {
-        text: 'Developer Experience',
+        text: '开发者体验',
         link: '/docs/concepts/developer-experience.md',
       },
-      { text: 'Hono Stacks', link: '/docs/concepts/stacks' },
+      { text: 'Hono 栈', link: '/docs/concepts/stacks' },
     ],
   },
   {
-    text: 'Getting Started',
+    text: '入门指南',
     collapsed: true,
     items: [
-      { text: 'Basic', link: '/docs/getting-started/basic' },
+      { text: '基础', link: '/docs/getting-started/basic' },
       {
         text: 'Cloudflare Workers',
         link: '/docs/getting-started/cloudflare-workers',
@@ -36,7 +36,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Deno', link: '/docs/getting-started/deno' },
       { text: 'Bun', link: '/docs/getting-started/bun' },
       {
-        text: 'Fastly Compute',
+        text: 'Fastly 计算',
         link: '/docs/getting-started/fastly',
       },
       { text: 'Vercel', link: '/docs/getting-started/vercel' },
@@ -58,11 +58,11 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/supabase-functions',
       },
       {
-        text: 'Ali Function Compute',
+        text: '阿里云函数计算',
         link: '/docs/getting-started/ali-function-compute',
       },
       {
-        text: 'Service Worker',
+        text: '服务工作者',
         link: '/docs/getting-started/service-worker',
       },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
@@ -72,163 +72,164 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'API',
     collapsed: true,
     items: [
-      { text: 'App', link: '/docs/api/hono' },
-      { text: 'Routing', link: '/docs/api/routing' },
-      { text: 'Context', link: '/docs/api/context' },
+      { text: '应用', link: '/docs/api/hono' },
+      { text: '路由', link: '/docs/api/routing' },
+      { text: '上下文', link: '/docs/api/context' },
       { text: 'HonoRequest', link: '/docs/api/request' },
-      { text: 'Exception', link: '/docs/api/exception' },
-      { text: 'Presets', link: '/docs/api/presets' },
+      { text: '异常', link: '/docs/api/exception' },
+      { text: '预设', link: '/docs/api/presets' },
     ],
   },
   {
-    text: 'Guides',
+    text: '指南',
     collapsed: true,
     items: [
-      { text: 'Middleware', link: '/docs/guides/middleware' },
-      { text: 'Helpers', link: '/docs/guides/helpers' },
+      { text: '中间件', link: '/docs/guides/middleware' },
+      { text: '助手', link: '/docs/guides/helpers' },
       {
         text: 'JSX',
         link: '/docs/guides/jsx',
       },
       {
-        text: 'Client Components',
+        text: '客户端组件',
         link: '/docs/guides/jsx-dom',
       },
-      { text: 'Testing', link: '/docs/guides/testing' },
+      { text: '测试', link: '/docs/guides/testing' },
       {
-        text: 'Validation',
+        text: '验证',
         link: '/docs/guides/validation',
       },
       {
-        text: 'RPC',
+        text: '远程过程调用 (RPC)',
         link: '/docs/guides/rpc',
       },
       {
-        text: 'Best Practices',
+        text: '最佳实践',
         link: '/docs/guides/best-practices',
       },
       {
-        text: 'Miscellaneous',
+        text: '其他杂项',
         link: '/docs/guides/others',
       },
       {
-        text: 'FAQs',
+        text: '常见问题',
         link: '/docs/guides/faq',
       },
     ],
   },
   {
-    text: 'Helpers',
+    text: '助手',
     collapsed: true,
     items: [
       { text: 'Accepts', link: '/docs/helpers/accepts' },
-      { text: 'Adapter', link: '/docs/helpers/adapter' },
+      { text: '适配器', link: '/docs/helpers/adapter' },
       { text: 'ConnInfo', link: '/docs/helpers/conninfo' },
       { text: 'Cookie', link: '/docs/helpers/cookie' },
       { text: 'css', link: '/docs/helpers/css' },
-      { text: 'Dev', link: '/docs/helpers/dev' },
-      { text: 'Factory', link: '/docs/helpers/factory' },
+      { text: '开发', link: '/docs/helpers/dev' },
+      { text: '工厂', link: '/docs/helpers/factory' },
       { text: 'html', link: '/docs/helpers/html' },
       { text: 'JWT', link: '/docs/helpers/jwt' },
       { text: 'SSG', link: '/docs/helpers/ssg' },
-      { text: 'Streaming', link: '/docs/helpers/streaming' },
-      { text: 'Testing', link: '/docs/helpers/testing' },
+      { text: '流', link: '/docs/helpers/streaming' },
+      { text: '测试', link: '/docs/helpers/testing' },
       { text: 'WebSocket', link: '/docs/helpers/websocket' },
     ],
   },
   {
-    text: 'Middleware',
+    text: '中间件',
     collapsed: true,
     items: [
       {
-        text: 'Basic Authentication',
+        text: '基本认证',
         link: '/docs/middleware/builtin/basic-auth',
       },
       {
-        text: 'Bearer Authentication',
+        text: 'Bearer 认证',
         link: '/docs/middleware/builtin/bearer-auth',
       },
       {
-        text: 'Body Limit',
+        text: '请求体限制',
         link: '/docs/middleware/builtin/body-limit',
       },
-      { text: 'Cache', link: '/docs/middleware/builtin/cache' },
-      { text: 'Combine', link: '/docs/middleware/builtin/combine' },
-      { text: 'Compress', link: '/docs/middleware/builtin/compress' },
-      { text: 'CORS', link: '/docs/middleware/builtin/cors' },
+      { text: '缓存', link: '/docs/middleware/builtin/cache' },
+      { text: '合并', link: '/docs/middleware/builtin/combine' },
+      { text: '压缩', link: '/docs/middleware/builtin/compress' },
+      { text: '跨域资源共享 (CORS)', link: '/docs/middleware/builtin/cors' },
       {
-        text: 'CSRF Protection',
+        text: 'CSRF 保护',
         link: '/docs/middleware/builtin/csrf',
       },
       { text: 'ETag', link: '/docs/middleware/builtin/etag' },
       {
-        text: 'IP Restriction',
+        text: 'IP 限制',
         link: '/docs/middleware/builtin/ip-restriction',
       },
       {
-        text: 'JSX Renderer',
+        text: 'JSX 渲染器',
         link: '/docs/middleware/builtin/jsx-renderer',
       },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
-      { text: 'Logger', link: '/docs/middleware/builtin/logger' },
+      { text: '日志记录器', link: '/docs/middleware/builtin/logger' },
       {
-        text: 'Method Override',
+        text: '方法覆盖',
         link: '/docs/middleware/builtin/method-override',
       },
       {
-        text: 'Pretty JSON',
+        text: '美化 JSON',
         link: '/docs/middleware/builtin/pretty-json',
       },
       {
-        text: 'Request ID',
+        text: '请求 ID',
         link: '/docs/middleware/builtin/request-id',
       },
       {
-        text: 'Secure Headers',
+        text: '安全头部',
         link: '/docs/middleware/builtin/secure-headers',
       },
-      { text: 'Timeout', link: '/docs/middleware/builtin/timeout' },
-      { text: 'Timing', link: '/docs/middleware/builtin/timing' },
+      { text: '超时', link: '/docs/middleware/builtin/timeout' },
+      { text: '计时', link: '/docs/middleware/builtin/timing' },
       {
-        text: 'Trailing Slash',
+        text: '尾随斜杠',
         link: '/docs/middleware/builtin/trailing-slash',
       },
       {
-        text: '3rd-party Middleware',
+        text: '第三方中间件',
         link: '/docs/middleware/third-party',
       },
     ],
   },
 ]
 
+
 export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
   {
-    text: 'Applications',
+    text: '应用',
     items: [
       {
         text: 'Web API',
         link: '/examples/web-api',
       },
       {
-        text: 'Proxy',
+        text: '代理',
         link: '/examples/proxy',
       },
       {
-        text: 'File upload',
+        text: '文件上传',
         link: '/examples/file-upload',
       },
       {
-        text: 'Error handling in Validator',
+        text: 'Validator中的错误处理',
         link: '/examples/validator-error-handling',
       },
       {
-        text: 'Grouping routes for RPC',
+        text: 'RPC路由分组',
         link: '/examples/grouping-routes-rpc',
       },
     ],
   },
   {
-    text: '3rd-party Middleware',
+    text: '第三方中间件',
     items: [
       {
         text: 'Zod OpenAPI',
@@ -241,14 +242,14 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
     ],
   },
   {
-    text: 'Integrations',
+    text: '集成',
     items: [
       {
         text: 'Cloudflare Durable Objects',
         link: '/examples/cloudflare-durable-objects',
       },
       {
-        text: 'Cloudflare Queue',
+        text: 'Cloudflare 队列',
         link: '/examples/cloudflare-queue',
       },
       {
@@ -264,7 +265,7 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/stripe-webhook',
       },
       {
-        text: 'Prisma on Cloudflare',
+        text: 'Prisma 在 Cloudflare 上',
         link: '/examples/prisma',
       },
       {
@@ -276,10 +277,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
 ]
 
 export default defineConfig({
-  lang: 'en-US',
+  lang: 'zh-CN',
   title: 'Hono',
   description:
-    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Node.js, and others. Fast, but not only fast.',
+    '一个超快的Web框架，支持Cloudflare Workers、Fastly Compute、Deno、Bun、Vercel、Node.js等。快，但不仅仅是快。',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: true,
@@ -306,19 +307,19 @@ export default defineConfig({
       { icon: 'x', link: 'https://twitter.com/honojs' },
     ],
     editLink: {
-      pattern: 'https://github.com/honojs/website/edit/main/:path',
-      text: 'Edit this page on GitHub',
+      pattern: 'https://github.com/hypier/hono_docs_cn/edit/main/:path',
+      text: '在 GitHub 上编辑此页面',
     },
     footer: {
-      message: 'Released under the MIT License.',
+      message: '根据 MIT 许可证发布。',
       copyright:
-        'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI.',
+        '版权所有 © 2022-至今 Yusuke Wada & Hono 贡献者。 "kawaii" 标志由 SAWARATSUKI 创建。',
     },
     nav: [
-      { text: 'Docs', link: '/docs/' },
-      { text: 'Examples', link: '/examples/' },
+      { text: '文档', link: '/docs/' },
+      { text: '示例', link: '/examples/' },
       {
-        text: 'Discussions',
+        text: '讨论',
         link: 'https://github.com/orgs/honojs/discussions',
       },
     ],
@@ -335,7 +336,7 @@ export default defineConfig({
         content: 'https://hono.dev/images/hono-title.png',
       },
     ],
-    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:type', content: '网站' }],
     ['meta', { property: 'twitter:domain', content: 'hono.dev' }],
     [
       'meta',

@@ -1,8 +1,8 @@
 # html Helper
 
-The html Helper lets you write HTML in JavaScript template literal with a tag named `html`. Using `raw()`, the content will be rendered as is. You have to escape these strings by yourself.
+html Helper 允许您在 JavaScript 模板字面量中使用名为 `html` 的标签编写 HTML。使用 `raw()`，内容将按原样呈现。您必须自己转义这些字符串。
 
-## Import
+## 导入
 
 ```ts
 import { Hono } from 'hono'
@@ -18,14 +18,14 @@ app.get('/:username', (c) => {
   const { username } = c.req.param()
   return c.html(
     html`<!doctype html>
-      <h1>Hello! ${username}!</h1>`
+      <h1>你好！${username}!</h1>`
   )
 })
 ```
 
-### Insert snippets into JSX
+### 将代码片段插入到 JSX 中
 
-Insert the inline script into JSX:
+将内联脚本插入到 JSX 中：
 
 ```tsx
 app.get('/', (c) => {
@@ -46,11 +46,11 @@ app.get('/', (c) => {
 })
 ```
 
-### Act as functional component
+### 作为功能组件
 
-Since `html` returns an HtmlEscapedString, it can act as a fully functional component without using JSX.
+由于 `html` 返回一个 HtmlEscapedString，它可以作为一个完全的功能组件，而无需使用 JSX。
 
-#### Use `html` to speed up the process instead of `memo`
+#### 使用 `html` 来加速过程，而不是使用 `memo`
 
 ```typescript
 const Footer = () => html`
@@ -60,7 +60,7 @@ const Footer = () => html`
 `
 ```
 
-### Receives props and embeds values
+### 接收 props 并嵌入值
 
 ```typescript
 interface SiteData {
@@ -89,16 +89,16 @@ const Layout = (props: SiteData) => html`
 
 const Content = (props: { siteData: SiteData; name: string }) => (
   <Layout {...props.siteData}>
-    <h1>Hello {props.name}</h1>
+    <h1>你好 {props.name}</h1>
   </Layout>
 )
 
 app.get('/', (c) => {
   const props = {
-    name: 'World',
+    name: '世界',
     siteData: {
-      title: 'Hello <> World',
-      description: 'This is a description',
+      title: '你好 <> 世界',
+      description: '这是一个描述',
       image: 'https://example.com/image.png',
     },
   }
@@ -115,9 +115,9 @@ app.get('/', (c) => {
 })
 ```
 
-## Tips
+## 提示
 
-Thanks to these libraries, Visual Studio Code and vim also interprets template literals as HTML, allowing syntax highlighting and formatting to be applied.
+由于这些库，Visual Studio Code 和 vim 也将模板字面量解释为 HTML，从而允许应用语法高亮和格式化。
 
 - <https://marketplace.visualstudio.com/items?itemName=bierner.lit-html>
 - <https://github.com/MaxMEllon/vim-jsx-pretty>

@@ -1,6 +1,6 @@
 # Swagger UI
 
-[Swagger UI Middleware](https://github.com/honojs/middleware/tree/main/packages/swagger-ui) provides a middleware and a component for integrating [Swagger UI](https://swagger.io/docs/open-source-tools/swagger-ui/usage/installation/) with Hono applications.
+[Swagger UI Middleware](https://github.com/honojs/middleware/tree/main/packages/swagger-ui) 提供了一个中间件和一个组件，用于将 [Swagger UI](https://swagger.io/docs/open-source-tools/swagger-ui/usage/installation/) 集成到 Hono 应用程序中。
 
 ```ts
 import { Hono } from 'hono'
@@ -14,6 +14,6 @@ app.get('/ui', swaggerUI({ url: '/doc' }))
 export default app
 ```
 
-## See also
+## 另见
 
-- [Swagger UI Middleware](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)
+- [Swagger UI 中间件](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)

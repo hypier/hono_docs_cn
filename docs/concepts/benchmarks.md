@@ -1,21 +1,21 @@
-# Benchmarks
+# Benchmark
 
-Benchmarks are only benchmarks, but they are important to us.
+基准只是基准，但对我们来说很重要。
 
-## Routers
+## 路由器
 
-We measured the speeds of a bunch of JavaScript routers.
-For example, `find-my-way` is a very fast router used inside Fastify.
+我们测量了一些 JavaScript 路由器的速度。
+例如，`find-my-way` 是一个在 Fastify 内部使用的非常快速的路由器。
 
 - @medley/router
 - find-my-way
 - koa-tree-router
 - trek-router
-- express (includes handling)
+- express (包括处理)
 - koa-router
 
-First, we registered the following routing to each of our routers.
-These are similar to those used in the real world.
+首先，我们为每个路由器注册了以下路由。
+这些与现实世界中使用的路由相似。
 
 ```ts
 export const routes: Route[] = [
@@ -34,53 +34,53 @@ export const routes: Route[] = [
 ]
 ```
 
-Then we sent the Request to the endpoints like below.
+然后我们像下面这样向端点发送请求。
 
 ```ts
 const routes: (Route & { name: string })[] = [
   {
-    name: 'short static',
+    name: '短静态',
     method: 'GET',
     path: '/user',
   },
   {
-    name: 'static with same radix',
+    name: '同基数静态',
     method: 'GET',
     path: '/user/comments',
   },
   {
-    name: 'dynamic route',
+    name: '动态路由',
     method: 'GET',
     path: '/user/lookup/username/hey',
   },
   {
-    name: 'mixed static dynamic',
+    name: '混合静态动态',
     method: 'GET',
     path: '/event/abcd1234/comments',
   },
   {
-    name: 'post',
+    name: 'POST',
     method: 'POST',
     path: '/event/abcd1234/comment',
   },
   {
-    name: 'long static',
+    name: '长静态',
     method: 'GET',
     path: '/very/deeply/nested/route/hello/there',
   },
   {
-    name: 'wildcard',
+    name: '通配符',
     method: 'GET',
     path: '/static/index.html',
   },
 ]
 ```
 
-Let's see the results.
+让我们看看结果。
 
 ### On Node.js
 
-The following screenshots show the results on Node.js.
+以下截图显示了在 Node.js 上的结果。
 
 ![bench](/images/bench01.png)
 
@@ -100,7 +100,7 @@ The following screenshots show the results on Node.js.
 
 ### On Bun
 
-The following screenshots show the results on Bun.
+以下截图显示了在 Bun 上的结果。
 
 ![bench](/images/bench09.png)
 
@@ -120,10 +120,10 @@ The following screenshots show the results on Bun.
 
 ## Cloudflare Workers
 
-**Hono is the fastest**, compared to other routers for Cloudflare Workers.
+**Hono 是最快的**，与其他 Cloudflare Workers 路由器相比。
 
-- Machine: Apple MacBook Pro, 32 GiB, M1 Pro
-- Scripts: [benchmarks/handle-event](https://github.com/honojs/hono/tree/main/benchmarks/handle-event)
+- 机器：Apple MacBook Pro，32 GiB，M1 Pro
+- 脚本：[benchmarks/handle-event](https://github.com/honojs/hono/tree/main/benchmarks/handle-event)
 
 ```
 Hono x 402,820 ops/sec ±4.78% (80 runs sampled)
@@ -136,26 +136,26 @@ Fastest is Hono
 
 ## Deno
 
-**Hono is the fastest**, compared to other frameworks for Deno.
+**Hono 是最快的**，与其他 Deno 框架相比。
 
-- Machine: Apple MacBook Pro, 32 GiB, M1 Pro, Deno v1.22.0
-- Scripts: [benchmarks/deno](https://github.com/honojs/hono/tree/main/benchmarks/deno)
-- Method: `bombardier --fasthttp -d 10s -c 100 'http://localhost:8000/user/lookup/username/foo'`
+- 机器：Apple MacBook Pro, 32 GiB, M1 Pro, Deno v1.22.0
+- 脚本：[benchmarks/deno](https://github.com/honojs/hono/tree/main/benchmarks/deno)
+- 方法：`bombardier --fasthttp -d 10s -c 100 'http://localhost:8000/user/lookup/username/foo'`
 
-| Framework |   Version    |                  Results |
-| --------- | :----------: | -----------------------: |
-| **Hono**  |    3.0.0     | **Requests/sec: 136112** |
-| Fast      | 4.0.0-beta.1 |     Requests/sec: 103214 |
-| Megalo    |    0.3.0     |      Requests/sec: 64597 |
-| Faster    |     5.7      |      Requests/sec: 54801 |
-| oak       |    10.5.1    |      Requests/sec: 43326 |
-| opine     |    2.2.0     |      Requests/sec: 30700 |
+| 框架      |   版本      |                  结果 |
+| --------- | :----------: | ---------------------: |
+| **Hono**  |    3.0.0    | **每秒请求数：136112** |
+| Fast      | 4.0.0-beta.1 |     每秒请求数：103214 |
+| Megalo    |    0.3.0    |      每秒请求数：64597 |
+| Faster    |     5.7      |      每秒请求数：54801 |
+| oak       |    10.5.1   |      每秒请求数：43326 |
+| opine     |    2.2.0    |      每秒请求数：30700 |
 
-Another benchmark result: [denosaurs/bench](https://github.com/denosaurs/bench)
+另一个基准测试结果：[denosaurs/bench](https://github.com/denosaurs/bench)
 
 ## Bun
 
-Hono is one of the fastest frameworks for Bun.
-You can see it below.
+Hono 是 Bun 中最快的框架之一。  
+您可以在下面查看。
 
 - [SaltyAom/bun-http-framework-benchmark](https://github.com/SaltyAom/bun-http-framework-benchmark)

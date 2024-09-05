@@ -1,21 +1,21 @@
-# Presets
+# 预设
 
-Hono has several routers, each designed for a specific purpose.
-You can specify the router you want to use in the constructor of Hono.
+Hono 有几种路由器，每种都设计用于特定目的。  
+您可以在 Hono 的构造函数中指定要使用的路由器。
 
-**Presets** are provided for common use cases, so you don't have to specify the router each time.
-The `Hono` class imported from all presets is the same, the only difference being the router.
-Therefore, you can use them interchangeably.
+**预设** 提供了常见用例，因此您不必每次都指定路由器。  
+从所有预设中导入的 `Hono` 类是相同的，唯一的区别是路由器。  
+因此，您可以互换使用它们。
 
 ## `hono`
 
-Usage:
+用法：
 
 ```ts
 import { Hono } from 'hono'
 ```
 
-Routers:
+路由器：
 
 ```ts
 this.router = new SmartRouter({
@@ -25,13 +25,13 @@ this.router = new SmartRouter({
 
 ## `hono/quick`
 
-Usage:
+用法：
 
 ```ts
 import { Hono } from 'hono/quick'
 ```
 
-Router:
+路由器：
 
 ```ts
 this.router = new SmartRouter({
@@ -41,22 +41,22 @@ this.router = new SmartRouter({
 
 ## `hono/tiny`
 
-Usage:
+用法：
 
 ```ts
 import { Hono } from 'hono/tiny'
 ```
 
-Router:
+路由器：
 
 ```ts
 this.router = new PatternRouter()
 ```
 
-## Which preset should I use?
+## 我应该使用哪个预设？
 
-| Preset       | Suitable platforms                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| 预设         | 适用平台                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `hono`       | This is highly recommended for most use cases. Although the registration phase may be slower than `hono/quick`, it exhibits high performance once booted. It's ideal for long-life servers built with **Deno**, **Bun**, or **Node.js**. For environments such as **Cloudflare Workers**, **Deno Deploy**, where v8 isolates are utilized, this preset is suitable as well. Because the isolations persist for a certain amount of time after booting. |
-| `hono/quick` | This preset is designed for environments where the application is initialized for every request. **Fastly Compute** operates in this manner, thus this preset is recommended for such use.                                                                                                                                                                                                                                                             |
-| `hono/tiny`  | This is the smallest router package and it's suitable for environments where resources are limited.                                                                                                                                                                                                                                                                                                                                                    |
+| `hono`       | 这是针对大多数用例的强烈推荐。尽管注册阶段可能比 `hono/quick` 慢，但一旦启动，它表现出高性能。它非常适合使用 **Deno**、**Bun** 或 **Node.js** 构建的长生命周期服务器。对于使用 v8 隔离的环境，如 **Cloudflare Workers**、**Deno Deploy**，这个预设也是合适的，因为隔离在启动后会持续一段时间。 |
+| `hono/quick` | 这个预设是为每个请求初始化应用程序的环境设计的。**Fastly Compute** 就是以这种方式运行，因此推荐在这种情况下使用此预设。                                                                                                                                                                                                                                                             |
+| `hono/tiny`  | 这是最小的路由器包，适合资源有限的环境。                                                                                                                                                                                                                                                                                                                                                    |

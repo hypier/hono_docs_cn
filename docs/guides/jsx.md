@@ -1,14 +1,14 @@
 # JSX
 
-You can write HTML with JSX syntax with `hono/jsx`.
+您可以使用 `hono/jsx` 以 JSX 语法编写 HTML。
 
-Although `hono/jsx` works on the client, you will probably use it most often when rendering content on the server side. Here are some things related to JSX that are common to both server and client.
+尽管 `hono/jsx` 可以在客户端工作，但您可能会在服务器端渲染内容时最常使用它。以下是一些与 JSX 相关的内容，这些内容在服务器和客户端中都是常见的。
 
-## Settings
+## 设置
 
-To use JSX, modify the `tsconfig.json`:
+要使用 JSX，请修改 `tsconfig.json`：
 
-`tsconfig.json`:
+`tsconfig.json`：
 
 ```json
 {
@@ -19,14 +19,14 @@ To use JSX, modify the `tsconfig.json`:
 }
 ```
 
-Alternatively, use the pragma directives:
+或者，使用 pragma 指令：
 
 ```ts
 /** @jsx jsx */
 /** @jsxImportSource hono/jsx */
 ```
 
-For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
+对于 Deno，您需要修改 `deno.json` 而不是 `tsconfig.json`：
 
 ```json
 {
@@ -37,7 +37,7 @@ For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
 }
 ```
 
-## Usage
+## 用法
 
 `index.tsx`:
 
@@ -60,7 +60,7 @@ const Top: FC<{ messages: string[] }> = (props: {
 }) => {
   return (
     <Layout>
-      <h1>Hello Hono!</h1>
+      <h1>你好 Hono!</h1>
       <ul>
         {props.messages.map((message) => {
           return <li>{message}!!</li>
@@ -71,7 +71,7 @@ const Top: FC<{ messages: string[] }> = (props: {
 }
 
 app.get('/', (c) => {
-  const messages = ['Good Morning', 'Good Evening', 'Good Night']
+  const messages = ['早上好', '晚上好', '晚安']
   return c.html(<Top messages={messages} />)
 })
 
@@ -80,7 +80,7 @@ export default app
 
 ## Fragment
 
-Use Fragment to group multiple elements without adding extra nodes:
+使用 Fragment 来分组多个元素而不添加额外的节点：
 
 ```tsx
 import { Fragment } from 'hono/jsx'
@@ -94,7 +94,7 @@ const List = () => (
 )
 ```
 
-Or you can write it with `<></>` if it set up properly.
+或者，如果设置正确，您可以使用 `<></>` 来编写。
 
 ```tsx
 const List = () => (
@@ -108,7 +108,7 @@ const List = () => (
 
 ## `PropsWithChildren`
 
-You can use `PropsWithChildren` to correctly infer a child element in a function component.
+您可以使用 `PropsWithChildren` 正确推断函数组件中的子元素。
 
 ```tsx
 import { PropsWithChildren } from 'hono/jsx'
@@ -128,9 +128,9 @@ function Component({ title, children }: PropsWithChildren<Post>) {
 }
 ```
 
-## Inserting Raw HTML
+## 插入原始 HTML
 
-To directly insert HTML, use `dangerouslySetInnerHTML`:
+要直接插入 HTML，请使用 `dangerouslySetInnerHTML`：
 
 ```tsx
 app.get('/foo', (c) => {
@@ -139,9 +139,9 @@ app.get('/foo', (c) => {
 })
 ```
 
-## Memoization
+## 记忆化
 
-Optimize your components by memoizing computed strings using `memo`:
+通过使用 `memo` 对计算字符串进行记忆化来优化您的组件：
 
 ```tsx
 import { memo } from 'hono/jsx'
@@ -157,9 +157,9 @@ const Layout = (
 )
 ```
 
-## Context
+## 上下文
 
-By using `useContext`, you can share data globally across any level of the Component tree without passing values through props.
+通过使用 `useContext`，您可以在组件树的任何层级中全局共享数据，而无需通过 props 传递值。
 
 ```tsx
 import type { FC } from 'hono/jsx'
@@ -206,8 +206,8 @@ app.get('/', (c) => {
 
 ## Async Component
 
-`hono/jsx` supports an Async Component, so you can use `async`/`await` in your component.
-If you render it with `c.html()`, it will await automatically.
+`hono/jsx` 支持异步组件，因此您可以在组件中使用 `async`/`await`。
+如果您使用 `c.html()` 渲染它，它会自动等待。
 
 ```tsx
 const AsyncComponent = async () => {
@@ -226,11 +226,11 @@ app.get('/', (c) => {
 })
 ```
 
-## Suspense <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+## 悬念 <Badge style="vertical-align: middle;" type="warning" text="实验性" />
 
-The React-like `Suspense` feature is available.
-If you wrap the async component with `Suspense`, the content in the fallback will be rendered first, and once the Promise is resolved, the awaited content will be displayed.
-You can use it with `renderToReadableStream()`.
+类似于 React 的 `Suspense` 功能可用。
+如果将异步组件包装在 `Suspense` 中，回退内容将首先渲染，一旦 Promise 被解决，等待的内容将会显示。
+您可以与 `renderToReadableStream()` 一起使用。
 
 ```tsx
 import { renderToReadableStream, Suspense } from 'hono/jsx/streaming'
@@ -256,11 +256,11 @@ app.get('/', (c) => {
 })
 ```
 
-## ErrorBoundary <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+## ErrorBoundary <Badge style="vertical-align: middle;" type="warning" text="实验性" />
 
-You can catch errors in child components using `ErrorBoundary`.
+您可以使用 `ErrorBoundary` 捕获子组件中的错误。
 
-In the example below, it will show the content specified in `fallback` if an error occurs.
+在下面的示例中，如果发生错误，将显示在 `fallback` 中指定的内容。
 
 ```tsx
 function SyncComponent() {
@@ -272,7 +272,7 @@ app.get('/sync', async (c) => {
   return c.html(
     <html>
       <body>
-        <ErrorBoundary fallback={<div>Out of Service</div>}>
+        <ErrorBoundary fallback={<div>服务不可用</div>}>
           <SyncComponent />
         </ErrorBoundary>
       </body>
@@ -281,7 +281,7 @@ app.get('/sync', async (c) => {
 })
 ```
 
-`ErrorBoundary` can also be used with async components and `Suspense`.
+`ErrorBoundary` 也可以与异步组件和 `Suspense` 一起使用。
 
 ```tsx
 async function AsyncComponent() {
@@ -294,8 +294,8 @@ app.get('/with-suspense', async (c) => {
   return c.html(
     <html>
       <body>
-        <ErrorBoundary fallback={<div>Out of Service</div>}>
-          <Suspense fallback={<div>Loading...</div>}>
+        <ErrorBoundary fallback={<div>服务不可用</div>}>
+          <Suspense fallback={<div>加载中...</div>}>
             <AsyncComponent />
           </Suspense>
         </ErrorBoundary>
@@ -305,10 +305,10 @@ app.get('/with-suspense', async (c) => {
 })
 ```
 
-## Integration with html Middleware
+## 与 HTML 中间件集成
 
-Combine the JSX and html middlewares for powerful templating.
-For in-depth details, consult the [html middleware documentation](/docs/helpers/html).
+结合 JSX 和 HTML 中间件以实现强大的模板功能。
+有关详细信息，请查阅 [html middleware documentation](/docs/helpers/html)。
 
 ```tsx
 import { Hono } from 'hono'
@@ -352,13 +352,13 @@ app.get('/:name', (c) => {
 export default app
 ```
 
-## With JSX Renderer Middleware
+## 使用 JSX 渲染器中间件
 
-The [JSX Renderer Middleware](/docs/middleware/builtin/jsx-renderer) allows you to create HTML pages more easily with the JSX.
+[JSX 渲染器中间件](/docs/middleware/builtin/jsx-renderer) 使您能够更轻松地使用 JSX 创建 HTML 页面。
 
-## Override type definitions
+## 重写类型定义
 
-You can override the type definition to add your custom elements and attributes.
+您可以重写类型定义以添加自定义元素和属性。
 
 ```ts
 declare module 'hono/jsx' {
